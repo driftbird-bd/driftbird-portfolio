@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> <link rel="icon" type="image/png" href="favicon.png">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>driftbird — Bird, Graphic Designer</title>
@@ -85,7 +85,7 @@
     width:100%; padding:13px var(--pad-x);
     display:flex; align-items:center; justify-content:space-between;
   }
-  .logo{ font-weight:700; font-size:16px; letter-spacing:-.01em; color:var(--nav-text); }
+  .logo{ font-weight:600; font-size:20px; letter-spacing:-.01em; color:var(--nav-text); }
   .logo span{ color:var(--blue); }
   nav.nav-links{ display:flex; gap:36px; align-items:center; }
   .nav-link{
@@ -256,7 +256,7 @@
   }
   .filter-btn:hover{ color:var(--off); border-color:var(--off); }
   .filter-btn.active{ background:var(--off); color:var(--black); border-color:var(--off); }
-  .work-list{ padding-top:64px; padding-bottom:130px; }
+  .work-list{ padding-top:88px; padding-bottom:130px; }
   .work-empty{ text-align:center; padding:100px 0; color:var(--gray); font-size:16px; }
 
   /* ================= PROJECT DETAIL ================= */
@@ -524,7 +524,7 @@
   }
   .about-hero-title{
     position:absolute;
-    top:100px;
+    top:150px;
     right:var(--pad-x);
     font-size:120px;
     font-weight:700;
@@ -593,7 +593,7 @@
   .about-flow .sep{ color:var(--gray); margin:0 10px; }
 
   @media (max-width:900px){
-    .about-hero-title{ top:72px; font-size:72px; }
+    .about-hero-title{ top:150px; font-size:72px; }
     .about-hero-scene{ min-height:auto; }
     .about-hero-left{
       position:relative; top:auto; height:auto; min-height:calc(100vh - 50px);
@@ -661,8 +661,9 @@
   }
 
   /* ================= CONTACT ================= */
-  .contact-page-title{ position:absolute; top:100px; right:var(--pad-x); font-size:120px; font-weight:700; line-height:.92; letter-spacing:-.04em; text-transform:uppercase; color:var(--white); }
+  .contact-page-title{ position:absolute; top:200px; right:var(--pad-x); font-size:120px; font-weight:700; line-height:.92; letter-spacing:-.04em; text-transform:uppercase; color:var(--white); }
   .contact-head{ padding-top:150px; }
+  .page[data-page="contact"] .contact-head{ padding-top:220px; }
   .contact-head h1{ font-size:max(36px, 2.5vw); font-weight:600; max-width:12ch; margin-top:6px; }
   .contact-sub{ font-size:16px; color:var(--off); margin-top:22px; max-width:48ch; }
   .contact-list{ margin-top:64px; border-top:1px solid var(--line); }
@@ -1033,21 +1034,34 @@ body, p, .pd-content-body, .pd-content-body p { font-size:16px !important; font-
   .pd-role-tools-grid .skill-row .name{white-space:normal !important;}
 }
 
-/* Work Filter: default = black / gray border / white text */
+/* Work Filter — restore the edited version */
 .filter-btn{
-  background:#000000 !important;
+  background:#111111 !important;
   color:#FFFFFF !important;
-  border:1px solid #666666 !important;
+  border:1px solid #111111 !important;
 }
 .filter-btn:hover{
-  background:#000000 !important;
-  color:#FFFFFF !important;
+  background:#FFFFFF !important;
+  color:#000000 !important;
   border-color:#FFFFFF !important;
 }
 .filter-btn.active{
   background:#FFFFFF !important;
   color:#000000 !important;
-  border-color:transparent !important;
+  border-color:#FFFFFF !important;
+}
+.filters-centered{justify-content:flex-start !important;}
+@media (max-width:700px){
+  .filters-centered{
+    justify-content:flex-start !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .filters-centered::-webkit-scrollbar{display:none;}
+  .filters-centered .filter-btn{flex:0 0 auto !important;}
 }
 
 /* LIVE CTA: white / black, no border; hover = 70% opacity */
@@ -1753,7 +1767,7 @@ footer.site-footer a.footer-link:focus-visible::after {
   }
 }
 </style>
-\n<style id="live-final-correction-v2">\n/* LIVE FINAL: one shared image height, independent of artwork ratio */\n#pdLiveSection .pd-live-full{\n  position:relative !important;\n  width:calc(100% - 160px) !important;\n  height:min(100svh, calc((100vw - 160px) * 9 / 16)) !important;\n  min-height:0 !important;\n  max-width:none !important;\n  left:auto !important;\n  margin-left:80px !important;\n  margin-right:0 !important;\n  aspect-ratio:auto !important;\n  overflow:hidden !important;\n  background:#000 !important;\n}\n\n/* Single-image LIVE: image fills the shared-height stage without distortion. */\n#pdLiveSection .pd-live-full > #pdLiveMediaWrap > .pd-live-image{\n  position:absolute !important;\n  z-index:1 !important;\n  top:50% !important; left:50% !important;\n  width:auto !important; height:100% !important;\n  max-width:100% !important; max-height:100% !important;\n  margin:0 !important;\n  transform:translate(-50%,-50%) !important;\n  object-fit:contain !important;\n  display:block !important;\n  transition:transform .45s ease !important;\n}\n#pdLiveSection .pd-live-full > #pdLiveMediaWrap > .pd-live-image:hover,\n#pdLiveSection .pd-live-full:hover > #pdLiveMediaWrap > .pd-live-image{\n  transform:translate(-50%,-50%) scale(1.035) !important;\n}\n\n/* 30% black overlay for every single-image LIVE. */\n#pdLiveSection .pd-live-full::after{\n  content:"" !important; position:absolute !important; inset:0 !important;\n  z-index:2 !important; background:rgba(0,0,0,.30) !important;\n  pointer-events:none !important; display:block !important;\n}\n\n/* CTA: keep the existing CTA supplied by each project visible. */\n#pdLiveSection .pd-live-overlay{\n  position:absolute !important; inset:0 !important; z-index:5 !important;\n  height:100% !important; padding:0 !important;\n  display:flex !important; align-items:center !important; justify-content:center !important;\n  pointer-events:none !important;\n}\n#pdLiveSection .pd-live-overlay > .pd-live-cta,\n#pdLiveSection > .pd-live-full .pd-live-cta{\n  display:inline-flex !important; visibility:visible !important; opacity:1 !important;\n  align-items:center !important; justify-content:center !important;\n  min-height:52px !important; padding:0 28px !important;\n  background:#fff !important; color:#000 !important; border:0 !important;\n  text-decoration:none !important; position:absolute !important;\n  left:50% !important; top:50% !important;\n  transform:translate(-50%,-50%) !important;\n  z-index:6 !important; pointer-events:auto !important;\n  transition:opacity .2s ease !important;\n}\n#pdLiveSection .pd-live-cta:hover{\n  background:#fff !important; color:#000 !important; opacity:.70 !important;\n}\n\n/* Multiple LIVE images: each image is a separate card, same height, own CTA. */\n#pdLiveSection.project-12-live .pd-live-full::after{display:none !important;}\n#pdLiveSection.project-12-live .pd-live-overlay{display:none !important;}\n#pdLiveSection.project-12-live .pd-live-two-images{\n  position:absolute !important; inset:0 !important; z-index:3 !important;\n  display:flex !important; align-items:center !important; justify-content:center !important;\n  gap:28px !important; padding:0 !important;\n}\n#pdLiveSection.project-12-live .pd-live-card{\n  position:relative !important; flex:0 0 auto !important;\n  width:auto !important; height:100% !important;\n  aspect-ratio:4 / 5 !important; max-height:100% !important;\n  overflow:hidden !important; background:#000 !important;\n}\n#pdLiveSection.project-12-live .pd-live-card::after{\n  content:"" !important; position:absolute !important; inset:0 !important;\n  z-index:2 !important; background:rgba(0,0,0,.30) !important;\n  pointer-events:none !important;\n}\n#pdLiveSection.project-12-live .pd-live-card-image{\n  position:absolute !important; inset:0 !important; z-index:1 !important;\n  width:100% !important; height:100% !important;\n  object-fit:cover !important; display:block !important;\n  transition:transform .45s ease !important;\n}\n#pdLiveSection.project-12-live .pd-live-card:hover .pd-live-card-image{\n  transform:scale(1.035) !important;\n}\n#pdLiveSection.project-12-live .pd-live-card .pd-live-cta{\n  display:inline-flex !important; visibility:visible !important; opacity:1 !important;\n  position:absolute !important; z-index:4 !important;\n  left:50% !important; top:50% !important; bottom:auto !important;\n  transform:translate(-50%,-50%) !important;\n  pointer-events:auto !important;\n  background:#fff !important; color:#000 !important; border:0 !important;\n}\n#pdLiveSection.project-12-live .pd-live-card .pd-live-cta:hover{\n  background:#fff !important; color:#000 !important; opacity:.70 !important;\n}\n\n@media(max-width:700px){\n  #pdLiveSection .pd-live-full{\n    width:calc(100% - 48px) !important; margin-left:24px !important;\n    height:min(100svh, calc((100vw - 48px) * 9 / 16)) !important;\n  }\n  #pdLiveSection.project-12-live .pd-live-two-images{gap:16px !important;}\n  #pdLiveSection.project-12-live .pd-live-card{height:100% !important;}\n}\n</style>\n
+<style id="live-final-correction-v2">\n/* LIVE FINAL: one shared image height, independent of artwork ratio */\n#pdLiveSection .pd-live-full{\n  position:relative !important;\n  width:calc(100% - 160px) !important;\n  height:min(100svh, calc((100vw - 160px) * 9 / 16)) !important;\n  min-height:0 !important;\n  max-width:none !important;\n  left:auto !important;\n  margin-left:80px !important;\n  margin-right:0 !important;\n  aspect-ratio:auto !important;\n  overflow:hidden !important;\n  background:#000 !important;\n}\n\n/* Single-image LIVE: image fills the shared-height stage without distortion. */\n#pdLiveSection .pd-live-full > #pdLiveMediaWrap > .pd-live-image{\n  position:absolute !important;\n  z-index:1 !important;\n  top:50% !important; left:50% !important;\n  width:auto !important; height:100% !important;\n  max-width:100% !important; max-height:100% !important;\n  margin:0 !important;\n  transform:translate(-50%,-50%) !important;\n  object-fit:contain !important;\n  display:block !important;\n  transition:transform .45s ease !important;\n}\n#pdLiveSection .pd-live-full > #pdLiveMediaWrap > .pd-live-image:hover,\n#pdLiveSection .pd-live-full:hover > #pdLiveMediaWrap > .pd-live-image{\n  transform:translate(-50%,-50%) scale(1.035) !important;\n}\n\n/* 30% black overlay for every single-image LIVE. */\n#pdLiveSection .pd-live-full::after{\n  content:"" !important; position:absolute !important; inset:0 !important;\n  z-index:2 !important; background:rgba(0,0,0,.30) !important;\n  pointer-events:none !important; display:block !important;\n}\n\n/* CTA: keep the existing CTA supplied by each project visible. */\n#pdLiveSection .pd-live-overlay{\n  position:absolute !important; inset:0 !important; z-index:5 !important;\n  height:100% !important; padding:0 !important;\n  display:flex !important; align-items:center !important; justify-content:center !important;\n  pointer-events:none !important;\n}\n#pdLiveSection .pd-live-overlay > .pd-live-cta,\n#pdLiveSection > .pd-live-full .pd-live-cta{\n  display:inline-flex !important; visibility:visible !important; opacity:1 !important;\n  align-items:center !important; justify-content:center !important;\n  min-height:52px !important; padding:0 28px !important;\n  background:#fff !important; color:#000 !important; border:0 !important;\n  text-decoration:none !important; position:absolute !important;\n  left:50% !important; top:50% !important;\n  transform:translate(-50%,-50%) !important;\n  z-index:6 !important; pointer-events:auto !important;\n  transition:opacity .2s ease !important;\n}\n#pdLiveSection .pd-live-cta:hover{\n  background:#fff !important; color:#000 !important; opacity:.70 !important;\n}\n\n/* Multiple LIVE images: each image is a separate card, same height, own CTA. */\n#pdLiveSection.project-12-live .pd-live-full::after{display:none !important;}\n#pdLiveSection.project-12-live .pd-live-overlay{display:none !important;}\n#pdLiveSection.project-12-live .pd-live-two-images{\n  position:absolute !important; inset:0 !important; z-index:3 !important;\n  display:flex !important; align-items:center !important; justify-content:center !important;\n  gap:28px !important; padding:0 !important;\n}\n#pdLiveSection.project-12-live .pd-live-card{\n  position:relative !important; flex:0 0 auto !important;\n  width:auto !important; height:100% !important;\n  aspect-ratio:4 / 5 !important; max-height:100% !important;\n  overflow:hidden !important; background:#000 !important;\n}\n#pdLiveSection.project-12-live .pd-live-card::after{\n  content:"" !important; position:absolute !important; inset:0 !important;\n  z-index:2 !important; background:rgba(0,0,0,.30) !important;\n  pointer-events:none !important;\n}\n#pdLiveSection.project-12-live .pd-live-card-image{\n  position:absolute !important; inset:0 !important; z-index:1 !important;\n  width:100% !important; height:100% !important;\n  object-fit:cover !important; display:block !important;\n  transition:transform .45s ease !important;\n}\n#pdLiveSection.project-12-live .pd-live-card:hover .pd-live-card-image{\n  transform:scale(1.035) !important;\n}\n#pdLiveSection.project-12-live .pd-live-card .pd-live-cta{\n  display:inline-flex !important; visibility:visible !important; opacity:1 !important;\n  position:absolute !important; z-index:4 !important;\n  left:50% !important; top:50% !important; bottom:auto !important;\n  transform:translate(-50%,-50%) !important;\n  pointer-events:auto !important;\n  background:#fff !important; color:#000 !important; border:0 !important;\n}\n#pdLiveSection.project-12-live .pd-live-card .pd-live-cta:hover{\n  background:#fff !important; color:#000 !important; opacity:.70 !important;\n}\n\n@media(max-width:700px){\n  #pdLiveSection .pd-live-full{\n    width:calc(100% - 48px) !important; margin-left:24px !important;\n    height:min(100svh, calc((100vw - 48px) * 9 / 16)) !important;\n  }\n  #pdLiveSection.project-12-live .pd-live-two-images{gap:16px !important;}\n  #pdLiveSection.project-12-live .pd-live-card{height:100% !important;}\n}</style>
 <style id="nidnoi-live-uncropped-fix">
 #pdLiveSection.project-12-live .pd-live-card{
   aspect-ratio:4/5 !important;
@@ -2290,6 +2304,682 @@ footer.site-footer a.footer-link:focus-visible::after {
   }
 }
 </style>
+<style id="bird-page-load-blank-final">
+/* PAGE LOAD TEXT REVEAL
+   A new route must paint as the site's background first. Nothing from the
+   destination is visible until the heading mask is ready to play. */
+.page{
+  opacity:1 !important;
+  transition:none !important;
+}
+.page:not(.bird-page-ready){
+  visibility:hidden !important;
+}
+.page.bird-page-ready{
+  visibility:visible !important;
+}
+/* Keep the entire destination visually empty while the heading is prepared.
+   Visibility can be overridden by the heading itself, unlike opacity. */
+.page.bird-page-ready:not(.bird-content-ready) > *{
+  visibility:hidden !important;
+}
+.page.bird-page-ready:not(.bird-content-ready) .bird-mask-reveal,
+.page.bird-page-ready:not(.bird-content-ready) .bird-mask-reveal .bird-mask-line{
+  visibility:visible !important;
+}
+.page.bird-page-ready.bird-content-ready > *{
+  visibility:visible !important;
+}
+</style>
+<style id="bird-masked-text-reveal-v2">
+/* FAST masked / slide-up heading reveal */
+.bird-mask-reveal{overflow:hidden;display:block;visibility:visible;}
+.bird-mask-reveal > .bird-mask-line{display:block;transform:translateY(100%);opacity:1;will-change:transform;}
+/* Keep headings completely invisible until JS has prepared the mask. */
+.home-hero h1,.about-hero-title,.page-hero-title,.contact-page-title,.pd-title,footer.site-footer .footer-heading{visibility:hidden;}
+.bird-mask-reveal{visibility:visible;}
+.bird-mask-reveal.bird-mask-play > .bird-mask-line{animation:birdMaskSlideUp .55s cubic-bezier(.22,.61,.36,1) both;}
+@keyframes birdMaskSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+/* Everything below the heading only fades in after the heading. */
+.bird-fade-target{opacity:0 !important;transition:opacity .45s ease !important;}
+.bird-fade-target.bird-fade-play{opacity:1 !important;}
+
+/* Keep secondary page content invisible from the very first paint.
+   The heading reveals first; these blocks fade in only after it finishes. */
+.page[data-page="about"] .about-hero-scene,
+.page[data-page="work"] .work-head .section-lede,
+.page[data-page="work"] .work-head .filters,
+.page[data-page="work"] .work-list,
+.page[data-page="contact"] .contact-head,
+.page[data-page="contact"] .contact-foot{
+  opacity:0;
+}
+.page[data-page="home"] .home-selected-work,
+.page[data-page="home"] .home-about{
+  opacity:0;
+}
+
+
+@media (prefers-reduced-motion:reduce){
+  .bird-mask-reveal > .bird-mask-line{transform:none!important;}
+  .bird-mask-reveal.bird-mask-play > .bird-mask-line{animation:none!important;}
+  .bird-fade-target{opacity:1!important;transition:none!important;}
+}
+</style>
+<script id="bird-masked-text-reveal-js-v2">
+(function(){
+  var pageSelectors={
+    home:['.home-hero h1'],
+    about:['.about-hero-title'],
+    work:['.page-hero-title'],
+    contact:['.contact-page-title'],
+    project:['.pd-title']
+  };
+
+  var fadeSelectors={
+    home:['.home-hero h2','.home-selected-work','.home-about'],
+    about:['.about-hero-scene'],
+    work:['.work-head .section-lede','.work-head .filters','.work-list'],
+    contact:['.contact-head','.contact-foot'],
+    project:['.pd-hero-year','.pd-hero-type','.pd-tagline','.pd-main','.pd-body','.pd-section']
+  };
+
+  function page(){
+    var p=(location.hash||'#home').slice(1).split('/');
+    if(p[0]==='work'&&p[1]) return 'project';
+    return pageSelectors[p[0]]?p[0]:'home';
+  }
+
+  function prepare(el){
+    if(!el) return;
+    var line=el.querySelector(':scope > .bird-mask-line');
+
+    /* Reuse an existing mask instead of wrapping it again. Work Detail is
+       rendered dynamically, so the title may already contain the mask. */
+    if(line){
+      el.classList.add('bird-mask-reveal');
+      el.dataset.birdMasked='1';
+      el.style.visibility='visible';
+      return;
+    }
+
+    var originalHTML=el.innerHTML;
+    if(!originalHTML.trim()) return;
+
+    el.classList.add('bird-mask-reveal');
+    el.dataset.birdMasked='1';
+    el.style.visibility='visible';
+    el.innerHTML='<span class="bird-mask-line">'+originalHTML+'</span>';
+  }
+
+  function play(){
+    var p=page(), routeName=(p==='project'?'project-detail':p), sels=pageSelectors[p]||[];
+
+    /* The new route starts hidden; only the active page is allowed to paint. */
+    document.querySelectorAll('.page').forEach(function(sec){
+      sec.classList.remove('bird-page-ready');
+    });
+
+    var currentSection=document.querySelector('.page[data-page="'+routeName+'"]');
+    if(currentSection){
+      currentSection.classList.remove('bird-content-ready');
+      currentSection.classList.add('bird-page-ready');
+    }
+
+    var els=sels.map(function(sel){
+      return currentSection && currentSection.querySelector(sel);
+    }).filter(Boolean);
+
+    /* Work Detail is a SPA route: reset the current title state every time
+       the route changes, then prepare the freshly rendered title for reveal. */
+    if (p === 'project') {
+      els.forEach(function(el){
+        el.classList.remove('bird-mask-play');
+        el.style.visibility='hidden';
+        el.dataset.birdMasked='';
+        var line=el.querySelector('.bird-mask-line');
+        if (line) line.style.transform='translateY(100%)';
+      });
+    }
+    els.forEach(prepare);
+
+    var fadeEls=[];
+    (fadeSelectors[p]||[]).forEach(function(sel){
+      if(!currentSection) return;
+      currentSection.querySelectorAll(sel).forEach(function(el){
+        el.classList.remove('bird-fade-play');
+        el.classList.add('bird-fade-target');
+        fadeEls.push(el);
+      });
+    });
+
+    requestAnimationFrame(function(){
+      var main=document.querySelector('main');
+      if(main) main.classList.add('bird-main-ready');
+
+      els.forEach(function(el){
+        el.classList.remove('bird-mask-play');
+        void el.offsetWidth;
+      });
+
+      requestAnimationFrame(function(){
+        els.forEach(function(el){
+          el.classList.add('bird-mask-play');
+        });
+
+        setTimeout(function(){
+          fadeEls.forEach(function(el){
+            el.classList.add('bird-fade-play');
+          });
+          if(currentSection) currentSection.classList.add('bird-content-ready');
+        },560);
+      });
+    });
+  }
+
+  function footer(){
+    var el=document.querySelector('footer.site-footer .footer-heading');
+    if(!el||el.dataset.birdFooter==='1') return;
+    el.dataset.birdFooter='1';
+    prepare(el);
+
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('bird-mask-play');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.15});
+
+    io.observe(el);
+  }
+
+  var birdRunTimerA = null;
+  var birdRunTimerB = null;
+  function run(){
+    if (birdRunTimerA) clearTimeout(birdRunTimerA);
+    if (birdRunTimerB) clearTimeout(birdRunTimerB);
+
+    var main=document.querySelector('main');
+    if(main) main.classList.remove('bird-main-ready');
+
+    /* Always replay from the freshly rendered route. This is intentionally
+       triggered after route() has rendered Work Detail, so no reload is needed. */
+    birdRunTimerA = setTimeout(function(){
+      play();
+    },40);
+    birdRunTimerB = setTimeout(function(){
+      footer();
+    },80);
+  }
+
+  /* Router-ready hook: the router renders the new route first, then we replay
+     the same masked reveal. This is essential for Work -> Work Detail because
+     that route changes without a full page reload. */
+  /* route() owns navigation; do not run a second transition in parallel. */
+  window.addEventListener('bird-route-ready',run);
+
+  document.addEventListener('DOMContentLoaded',function(){
+    run();
+
+    var main=document.querySelector('main');
+    if(main){
+      new MutationObserver(function(){
+        footer();
+      }).observe(main,{childList:true,subtree:true});
+    }
+
+    /*
+     * Top navigation: same-page links keep the existing reload behavior.
+     * Different pages use the same hidden-new-page -> masked-heading reveal.
+     */
+    document.querySelectorAll('.nav-link').forEach(function(link){
+      link.addEventListener('click',function(e){
+        var target=(link.getAttribute('href')||'').replace(/^#/,'').split('/')[0]||'home';
+        var hash=(location.hash||'#home').slice(1);
+        var parts=hash.split('/');
+        var current=parts[0]||'home';
+        var isWorkDetail=(current==='work' && !!parts[1]);
+
+        /* Work Detail belongs to the Work route, but clicking Work from a
+           detail page must return to #work — never reload the detail page. */
+        if(target===current && !isWorkDetail){
+          e.preventDefault();
+          window.location.reload();
+          return;
+        }
+
+        e.preventDefault();
+        /* Hide the currently rendered page immediately. The hashchange/router
+           runs on the next event turn; leaving the old page visible during that
+           gap causes HOME (or the previous page) to flash before the new route
+           begins its masked heading reveal. */
+        document.querySelectorAll('.page').forEach(function(sec){
+          sec.classList.remove('bird-page-ready');
+          sec.hidden = true;
+        });
+        window.location.hash='#'+target;
+      });
+    });
+  });
+})();
+</script>
+<script id="bird-menu-reload-home-and-project-final">
+(function(){
+  function bindReloads(){
+    var logo=document.querySelector('a.logo');
+    if(logo && !logo.dataset.reloadBound){
+      logo.dataset.reloadBound='1';
+      logo.addEventListener('click',function(e){
+        var current=(location.hash||'#home').slice(1).split('/')[0] || 'home';
+        if(current==='home'){
+          e.preventDefault();
+          window.location.reload();
+        }
+      });
+    }
+
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindReloads);
+  else bindReloads();
+})();
+</script>
+<style id="bird-home-project-mask-final">
+/* HOME + WORK DETAIL — make the heading reveal a true clipped mask, not a page fade-up. */
+.page[data-page="home"],
+.page[data-page="project-detail"]{
+  transition:none !important;
+}
+.page[data-page="home"] .home-hero h1.bird-mask-reveal,
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal{
+  overflow:hidden !important;
+  clip-path:inset(-0.22em 0 -0.05em 0) !important;
+}
+.page[data-page="home"] .home-hero h1.bird-mask-reveal > .bird-mask-line,
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal > .bird-mask-line{
+  opacity:1 !important;
+  will-change:transform !important;
+}
+</style>
+
+<style id="bird-project-title-mask-individual-spacing">
+/* Work Detail — tiny mask-area adjustments per title only.
+   Keep the original title layout; give each affected title just enough
+   breathing room on the side that was clipping its glyphs. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+  clip-path:inset(-0.30em 0 -0.08em 0) !important; /* ใจเป็นนาย กายเป็นบ่าว — more room above */
+}
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"],
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-14"],
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-12"]{
+  clip-path:inset(-0.24em -0.07em -0.08em 0) !important; /* more room on the right */
+}
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+  clip-path:inset(-0.24em 0 -0.13em 0) !important; /* ลูกหมีผจญภัย — more room below */
+}
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+    clip-path:inset(-0.34em 0 -0.10em 0) !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"],
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-14"],
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-12"]{
+    clip-path:inset(-0.28em -0.08em -0.10em 0) !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+    clip-path:inset(-0.28em 0 -0.15em 0) !important;
+  }
+}
+</style>
+
+
+<style id="bird-project-title-mask-actual-viewport-fix">
+/* FINAL FIX — expand the actual overflow viewport, not only clip-path.
+   The previous clip-path-only adjustment could not reveal glyphs outside the
+   pd-title border box because the shared masked heading still uses overflow:hidden.
+   Keep the original title layout; add only a tiny invisible breathing area on
+   the requested side and cancel it with the matching margin. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+  padding-top:.06em !important;
+  margin-top:-.06em !important;
+}
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"],
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-14"],
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-12"]{
+  padding-right:.08em !important;
+  margin-right:-.08em !important;
+}
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+  padding-bottom:.06em !important;
+  margin-bottom:-.06em !important;
+}
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+    padding-top:.07em !important;
+    margin-top:-.07em !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"],
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-14"],
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-12"]{
+    padding-right:.09em !important;
+    margin-right:-.09em !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+    padding-bottom:.07em !important;
+    margin-bottom:-.07em !important;
+  }
+}
+</style>
+
+
+
+<style id="bird-project-title-mask-five-pages-final">
+/* FINAL — enlarge ONLY the actual Masked Text Reveal viewport for the five affected Work Detail titles.
+   Keep the original title position, font, line breaks, and animation. */
+
+/* ใจเป็นนาย กายเป็นบ่าว — a little more room above the mask */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+  padding-top:.12em !important;
+  margin-top:-.12em !important;
+}
+
+/* JUNGLE CRUISE PORTFOLIO / หมาคาบเกิบ PROMOTIONAL VISUAL / นิดหน่อย PROMOTIONAL VISUAL
+   — a little more room on the right side of the actual mask */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"],
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-14"],
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-12"]{
+  width:calc(100% + .18em) !important;
+  margin-right:-.18em !important;
+}
+
+/* ลูกหมีผจญภัย — a little more room below the mask */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+  padding-bottom:.12em !important;
+  margin-bottom:-.12em !important;
+}
+
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+    padding-top:.14em !important;
+    margin-top:-.14em !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"],
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-14"],
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-12"]{
+    width:calc(100% + .20em) !important;
+    margin-right:-.20em !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+    padding-bottom:.14em !important;
+    margin-bottom:-.14em !important;
+  }
+}
+</style>
+
+<style id="bird-project-title-mask-three-pages-final">
+/* FINAL — only the three requested Work Detail pages. Keep the original
+   title layout and animation; enlarge only the actual reveal area / spacing. */
+
+/* ใจเป็นนาย กายเป็นบ่าว — a little more room above the Masked Text Reveal. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+  padding-top:.18em !important;
+  margin-top:-.18em !important;
+}
+
+/* JUNGLE CRUISE PORTFOLIO — more room on the right so the final glyph is
+   fully inside the Masked Text Reveal viewport. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"]{
+  width:calc(100% + .34em) !important;
+  margin-right:-.34em !important;
+}
+
+/* ลูกหมีผจญภัย — keep the text fully visible, but add a little more
+   separation before the description so Thai glyphs (especially ญ) do not
+   visually collide with the tagline. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+  padding-bottom:.12em !important;
+  margin-bottom:30px !important;
+}
+
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-09"]{
+    padding-top:.20em !important;
+    margin-top:-.20em !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"]{
+    width:calc(100% + .36em) !important;
+    margin-right:-.36em !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+    padding-bottom:.14em !important;
+    margin-bottom:26px !important;
+  }
+}
+</style>
+
+
+<style id="bird-project-title-mask-two-pages-more-space">
+/* ONLY these two Work Detail titles. The Masked Text Reveal itself stays the same;
+   only the real clipping viewport gets a little more usable space. */
+
+/* JUNGLE CRUISE PORTFOLIO — more room on the RIGHT.
+   The old 12ch max-width was still limiting the actual heading viewport, so the
+   final O could be clipped. Keep the title in its original position and simply
+   let the mask contain the full line. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"]{
+  max-width:none !important;
+  width:max-content !important;
+  max-width:calc(100% + 0.8em) !important;
+  padding-right:0.8em !important;
+  margin-right:-0.8em !important;
+  clip-path:inset(-0.24em -0.80em -0.08em 0) !important;
+}
+
+/* ลูกหมีผจญภัย — more room BELOW the mask, without changing the heading's
+   visible position or the spacing to the description. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+  padding-bottom:0.22em !important;
+  margin-bottom:calc(18px - 0.22em) !important;
+  clip-path:inset(-0.24em 0 -0.22em 0) !important;
+}
+
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-18"]{
+    max-width:none !important;
+    width:max-content !important;
+    max-width:calc(100% + 0.9em) !important;
+    padding-right:0.9em !important;
+    margin-right:-0.9em !important;
+    clip-path:inset(-0.28em -0.90em -0.10em 0) !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal[data-project-title-slug="project-16"]{
+    padding-bottom:0.26em !important;
+    margin-bottom:calc(18px - 0.26em) !important;
+    clip-path:inset(-0.28em 0 -0.26em 0) !important;
+  }
+}
+</style>
+
+
+<style id="home-footer-scroll-reveal">
+/* Home + Footer — scroll-triggered fade-in reveal */
+/* Enable the existing reveal system for Home as well. */
+.page[data-page="home"] .reveal,
+.page[data-page="home"] .reveal-media,
+.page[data-page="home"] .home-scroll-reveal,
+footer.site-footer .footer-scroll-reveal{
+  opacity:0 !important;
+  transform:translateY(28px) !important;
+  transition:opacity .55s ease-out, transform .55s ease-out !important;
+}
+.page[data-page="home"] .reveal.is-visible,
+.page[data-page="home"] .reveal-media.is-visible,
+.page[data-page="home"] .home-scroll-reveal.is-visible,
+footer.site-footer .footer-scroll-reveal.is-visible{
+  opacity:1 !important;
+  transform:translateY(0) !important;
+}
+.page[data-page="home"] .home-about-image.home-scroll-reveal{
+  transform:translateY(18px) scale(.97) !important;
+  transition:opacity .6s ease-out, transform .6s ease-out !important;
+}
+.page[data-page="home"] .home-about-image.home-scroll-reveal.is-visible{
+  transform:translateY(0) scale(1) !important;
+}
+.page[data-page="home"] .home-selected-work > .home-section-title.home-scroll-reveal{transition-delay:0ms !important;}
+.page[data-page="home"] .home-selected-work > .home-section-cta.home-scroll-reveal{transition-delay:120ms !important;}
+.page[data-page="home"] .home-about-left.home-scroll-reveal{transition-delay:0ms !important;}
+.page[data-page="home"] .home-about-image.home-scroll-reveal{transition-delay:120ms !important;}
+footer.site-footer .footer-heading.footer-scroll-reveal{transition-delay:0ms !important;}
+footer.site-footer .footer-main.footer-scroll-reveal{transition-delay:120ms !important;}
+footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms !important;}
+@media (prefers-reduced-motion: reduce){
+  .page[data-page="home"] .home-scroll-reveal,
+  footer.site-footer .footer-scroll-reveal,
+  .page[data-page="home"] .home-about-image.home-scroll-reveal{
+    transition:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+}
+</style>
+
+
+<style id="work-about-contact-heading-padding-final">
+/* Work heading position = 50px main offset + 150px work-head padding = 200px from viewport top.
+   About is positioned inside .about-hero, which starts after the 50px main offset.
+   Contact title is absolutely positioned from the viewport, so it uses 200px directly. */
+.page[data-page="about"] .about-hero-title{ top:150px !important; }
+.page[data-page="contact"] .contact-page-title{ top:200px !important; }
+</style>
+
+
+<style id="work-filter-card-spacing-final">
+/* WORK — move Filter + Work Cards down together; keep their spacing unchanged. */
+.page[data-page="work"] .filters-centered{ margin-top:132px !important; }
+.page[data-page="work"] .work-list{ padding-top:76px !important; }
+</style>
+
+<style id="responsive-footer-spacing-fix">
+@media (max-width:700px){
+  /* Keep each footer group together, but move both groups lower. */
+  footer.site-footer .footer-row{
+    padding-top:32px !important;
+  }
+  footer.site-footer .footer-right{
+    margin-top:32px !important;
+  }
+}
+</style>
+
+
+<style id="h5-work-card-type-spec">
+/* H5 — Work Card project name */
+.work-tile-cap h2,
+.work-tile-cap h3,
+.next-project-card-cap h4 {
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  line-height: 1.05 !important;
+}
+</style>
+
+<style id="navigation-size-final">
+/* NAVIGATION — WORK / ABOUT / CONTACT */
+.nav-link{font-size:12px !important;font-weight:600 !important;}
+@media (max-width:820px){
+  nav.nav-links .nav-link{font-size:16px !important;font-weight:600 !important;}
+}
+</style>
+
+<style id="mobile-h2-h5-final">
+/* Mobile — slightly smaller H2 / H5 */
+@media (max-width:700px){
+  h2,
+  .section-title,
+  .pd-section-title,
+  .hero .hero-role,
+  .about-hero .about-title{
+    font-size:24px !important;
+  }
+
+  .work-tile-cap h2,
+  .work-tile-cap h3,
+  .next-project-card-cap h4{
+    font-size:20px !important;
+  }
+}
+</style>
+
+
+<style id="mobile-h2-h5-final-fix">
+/* FINAL — Responsive H2 / H5 sizes */
+@media (max-width:700px){
+  /* H2 — section headings */
+  h2,
+  .section-title,
+  .pd-section-title,
+  .hero .hero-role,
+  .about-hero .about-title,
+  .home-section-title{
+    font-size:24px !important;
+  }
+
+  /* H5 — Work Card / Next Project titles */
+  .work-tile-cap h2,
+  .work-tile-cap h3,
+  .next-project-card-cap h4{
+    font-size:20px !important;
+  }
+}
+
+/* Keep the same H2/H5 sizes on very small screens.
+   This prevents the older 26px Work-card rule from overriding H5. */
+@media (max-width:380px){
+  .work-tile-cap h2,
+  .work-tile-cap h3,
+  .next-project-card-cap h4{
+    font-size:20px !important;
+  }
+}
+</style>
+
+
+<style id="live-image-hover-zoom-all-ratios-final">
+/* FINAL — LIVE image hover zoom for all single-image aspect ratios.
+   Keeps each project's existing sizing/positioning and does not change LIVE CTA hover. */
+#pdLiveSection.project-15-live .pd-live-image,
+#pdLiveSection.project-13-live .pd-live-image,
+#pdLiveSection.project-14-live .pd-live-image,
+#pdLiveSection.project-19-live .pd-live-image{
+  transition:transform .45s ease !important;
+}
+
+#pdLiveSection.project-15-live .pd-live-full:hover .pd-live-image,
+#pdLiveSection.project-19-live .pd-live-full:hover .pd-live-image{
+  transform:scale(1.035) !important;
+}
+
+/* Project 13 — preserve the existing centered transform, then add zoom. */
+#pdLiveSection.project-13-live .pd-live-full:hover .pd-live-image{
+  transform:translate(-50%,-50%) scale(1.035) !important;
+}
+
+/* Project 14 — preserve its existing centered portrait treatment. */
+#pdLiveSection.project-14-live .pd-live-full:hover .pd-live-image{
+  transform:scale(1.045) !important;
+}
+
+/* Project 12 — two 4:5 images, each zooms independently when its own card is hovered. */
+#pdLiveSection.project-12-live .pd-live-card-image{
+  transition:transform .45s ease !important;
+}
+#pdLiveSection.project-12-live .pd-live-card:hover .pd-live-card-image{
+  transform:scale(1.035) !important;
+}
+</style>
 </head>
 <body>
 
@@ -2313,7 +3003,7 @@ footer.site-footer a.footer-link:focus-visible::after {
     <div class="home-hero">
       <div class="wrap home-hero-inner">
         <h1>DRIFTBIRD<span class="dot">.</span></h1>
-        <h2>CREATIVE<br>&amp; DIGITAL DESIGNER</h2>
+        <h2>CREATIVE &amp; DIGITAL DESIGNER</h2>
       </div>
     </div>
 
@@ -2443,7 +3133,7 @@ footer.site-footer a.footer-link:focus-visible::after {
         <div class="pd-live-label">LIVE</div>
         <div class="pd-live-bottom">
           <div class="pd-live-title" id="pdLiveTitle">Watch the music video</div>
-          <a href="#" target="_blank" rel="noopener" class="pd-live-cta" id="pdLiveCta">VIEW ↗</a>
+          <a href="#" target="_blank" rel="noopener" class="pd-live-cta" id="pdLiveCta">VIEW ↗︎</a>
         </div>
       </div>
           <div id="pdLiveMediaWrap"></div>
@@ -2554,7 +3244,7 @@ footer.site-footer a.footer-link:focus-visible::after {
         </div>
         <div class="contact-item reveal">
           <span class="k">Resume</span>
-          <a href="https://drive.google.com/file/d/1qsxKk68UirHiKsJL6csRCOMPggK0px3I/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+          <a href="https://drive.google.com/file/d/1qsxKk68UirHiKsJL6csRCOMPggK0px3I/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume ↗︎</a>
         </div>
       </div>
     </div>
@@ -2658,8 +3348,8 @@ footer.site-footer a.footer-link:focus-visible::after {
           <div class="footer-label">EMAIL</div>
           <a class="footer-value footer-link" href="mailto:kullatida5437@gmail.com">kullatida5437@gmail.com</a>
         </div>
-        <a class="footer-value footer-link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a>
-        <a class="footer-value footer-link" href="https://drive.google.com/file/d/1qsxKk68UirHiKsJL6csRCOMPggK0px3I/view?usp=sharing" target="_blank" rel="noopener noreferrer">RESUME ↗</a>
+        <a class="footer-value footer-link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LINKEDIN ↗︎</a>
+        <a class="footer-value footer-link" href="https://drive.google.com/file/d/1qsxKk68UirHiKsJL6csRCOMPggK0px3I/view?usp=sharing" target="_blank" rel="noopener noreferrer">RESUME ↗︎</a>
       </div>
     </div>
 
@@ -2756,7 +3446,7 @@ footer.site-footer a.footer-link:focus-visible::after {
       live: {
         url: "https://www.youtube.com/watch?v=qGOdhkd9hdw",
         platform: "YouTube",
-        ctaLabel: "YOUTUBE ↗",
+        ctaLabel: "YOUTUBE ↗︎",
         title: "ใจเป็นนาย กายเป็นบ่าว — Official MV",
         image: {
           src: 'assets/images/image-013.jpg',
@@ -2788,7 +3478,7 @@ footer.site-footer a.footer-link:focus-visible::after {
         placeholder: false,
         image: { src: "assets/images/image-016.jpg", alt: "Teaser MV นิดหน่อย" },
         url: "https://youtu.be/53o1ytikAxg?si=9J4c173Vdkw4Byr9",
-        ctaLabel: "YOUTUBE ↗"
+        ctaLabel: "YOUTUBE ↗︎"
       }
     },
     {
@@ -2827,16 +3517,16 @@ footer.site-footer a.footer-link:focus-visible::after {
       directionImages: [],
       live: {
         images: [
-          { image: "assets/images/image-021.jpg", url: "https://www.facebook.com/share/p/1bpu8354D2/", ctaLabel: "FACEBOOK ↗", name: "Hotel 1", dims: "1080 × 1080 · 1:1" },
-          { image: "assets/images/image-022.jpg", url: "https://www.facebook.com/share/p/1CDMjCNV1v/", ctaLabel: "FACEBOOK ↗", name: "Hotel 2", dims: "1080 × 1080 · 1:1" },
-          { image: "assets/images/image-023.jpg", url: "https://www.facebook.com/share/p/18U4Qc7cDX/", ctaLabel: "FACEBOOK ↗", name: "Hotel 3", dims: "1080 × 1080 · 1:1" },
-          { image: "assets/images/image-024.jpg", url: "https://www.facebook.com/share/p/1DLBFahEMt/", ctaLabel: "FACEBOOK ↗", name: "Hotel 4", dims: "1080 × 1080 · 1:1" },
-          { image: "assets/images/image-025.jpg", url: "https://www.facebook.com/share/p/14q1zho81vA/", ctaLabel: "FACEBOOK ↗", name: "Hotel 5", dims: "1080 × 1080 · 1:1" },
-          { image: "assets/images/image-026.jpg", url: "https://www.facebook.com/share/p/1DHZEdoZ2o/", ctaLabel: "FACEBOOK ↗", name: "Hotel 6", dims: "1080 × 1080 · 1:1" },
-          { image: "assets/images/image-027.jpg", url: "https://www.facebook.com/share/p/19UwuQ5rUT/", ctaLabel: "FACEBOOK ↗", name: "Hotel 7", dims: "1080 × 1080 · 1:1" }
+          { image: "assets/images/image-021.jpg", url: "https://www.facebook.com/share/p/1bpu8354D2/", ctaLabel: "FACEBOOK ↗︎", name: "Hotel 1", dims: "1080 × 1080 · 1:1" },
+          { image: "assets/images/image-022.jpg", url: "https://www.facebook.com/share/p/1CDMjCNV1v/", ctaLabel: "FACEBOOK ↗︎", name: "Hotel 2", dims: "1080 × 1080 · 1:1" },
+          { image: "assets/images/image-023.jpg", url: "https://www.facebook.com/share/p/18U4Qc7cDX/", ctaLabel: "FACEBOOK ↗︎", name: "Hotel 3", dims: "1080 × 1080 · 1:1" },
+          { image: "assets/images/image-024.jpg", url: "https://www.facebook.com/share/p/1DLBFahEMt/", ctaLabel: "FACEBOOK ↗︎", name: "Hotel 4", dims: "1080 × 1080 · 1:1" },
+          { image: "assets/images/image-025.jpg", url: "https://www.facebook.com/share/p/14q1zho81vA/", ctaLabel: "FACEBOOK ↗︎", name: "Hotel 5", dims: "1080 × 1080 · 1:1" },
+          { image: "assets/images/image-026.jpg", url: "https://www.facebook.com/share/p/1DHZEdoZ2o/", ctaLabel: "FACEBOOK ↗︎", name: "Hotel 6", dims: "1080 × 1080 · 1:1" },
+          { image: "assets/images/image-027.jpg", url: "https://www.facebook.com/share/p/19UwuQ5rUT/", ctaLabel: "FACEBOOK ↗︎", name: "Hotel 7", dims: "1080 × 1080 · 1:1" }
 
         ],
-        ctaLabel: "FACEBOOK ↗"
+        ctaLabel: "FACEBOOK ↗︎"
       }
     },
     {
@@ -2856,7 +3546,7 @@ footer.site-footer a.footer-link:focus-visible::after {
       directionImages: [],
       live: {
         url: "https://www.facebook.com/share/p/18WbSNmChL/",
-        ctaLabel: "FACEBOOK ↗",
+        ctaLabel: "FACEBOOK ↗︎",
         image: {
           src: "assets/images/image-031.jpg",
           alt: "Valentine’s Day Office Content — Facebook post"
@@ -2920,7 +3610,7 @@ footer.site-footer a.footer-link:focus-visible::after {
         placeholder: true,
         image: { src: 'assets/images/image-043.jpg', alt: "หมาคาบเกิบ TikTok Filter — live" },
         platform: "TikTok",
-        ctaLabel: "TIKTOK ↗",
+        ctaLabel: "TIKTOK ↗︎",
         url: "https://www.tiktok.com/sticker/%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%9A%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%9A-Effect-592041113?is_from_webapp=1&sender_device=pc",
         title: "หมาคาบเกิบ TIKTOK FILTER"
       }
@@ -2943,7 +3633,7 @@ footer.site-footer a.footer-link:focus-visible::after {
       concept: "",
       live: {
         platform: "Instagram",
-        ctaLabel: "INSTAGRAM ↗",
+        ctaLabel: "INSTAGRAM ↗︎",
         url: "https://www.instagram.com/p/C-Eys2EveM4/",
         title: "หมาคาบเกิบ PROMOTIONAL VISUAL",
         image: { src: "assets/images/image-045.jpg", alt: "หมาคาบเกิบ Instagram promotional visual" }
@@ -2970,7 +3660,7 @@ footer.site-footer a.footer-link:focus-visible::after {
         placeholder: false,
         image: { src: "assets/images/image-048.jpg", alt: "TikTok — REACT ความรู้สึก เพลงประกอบชีวิต" },
         platform: "TikTok",
-        ctaLabel: "TIKTOK ↗",
+        ctaLabel: "TIKTOK ↗︎",
         url: "https://vt.tiktok.com/ZSqXPRdY6/",
         title: "REACT ความรู้สึก เพลงประกอบชีวิต"
       }
@@ -3005,8 +3695,8 @@ footer.site-footer a.footer-link:focus-visible::after {
         placeholder: true,
         twoImages: true,
         images: [
-          { image: nidnoiLiveImage01, ctaLabel: "FACEBOOK ↗", url: "https://www.facebook.com/share/1JzngnTqym/?mibextid=wwXIfr" },
-          { image: nidnoiLiveImage02, ctaLabel: "FACEBOOK ↗", url: "https://www.facebook.com/share/1GaoxBk2EH/?mibextid=wwXIfr" }
+          { image: nidnoiLiveImage01, ctaLabel: "FACEBOOK ↗︎", url: "https://www.facebook.com/share/1JzngnTqym/?mibextid=wwXIfr" },
+          { image: nidnoiLiveImage02, ctaLabel: "FACEBOOK ↗︎", url: "https://www.facebook.com/share/1GaoxBk2EH/?mibextid=wwXIfr" }
         ]
       }
     },
@@ -3028,7 +3718,10 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
       cardHoverImage: 'assets/images/animation-003.gif',
             heroImage: 'assets/images/image-050.jpg',
       conceptImage: 'assets/images/image-051.jpg',
-            behindTheScenes: [],
+      tagline: "A playful 2D animation that introduces green tea and its benefits.",
+      behindTheScenes: [
+        { src: "assets/images/image-059.jpg", alt: "The Secret of Green Tea — Behind The Scenes", dims: "1920 × 1080 · 16:9" }
+      ],
       characterImages: [
         { name: "Character — Rabbit", dims: "1200 × 1600 · 3:4" },
         { name: "Character — Green Tea (lead)", dims: "1200 × 1600 · 3:4" },
@@ -3237,12 +3930,25 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
   if (heroEl) heroEl.classList.toggle('project-20-hotel-booking', project.slug === 'project-20');
   var conceptSectionEl = document.getElementById('pdConceptSection');
   if (conceptSectionEl) conceptSectionEl.classList.toggle('project-10-green-tea', project.slug === 'project-10');
-    titleEl.innerHTML = (project.slug === 'project-17')
+    /*
+     * Always build the project title with the same masked-text structure.
+     * Work Detail is data-driven, so relying on the previous DOM state can
+     * leave some projects without the reveal after navigation.
+     */
+    var projectTitleHTML = (project.slug === 'project-17')
       ? 'Bobby Helps<br>Escape Fire'
       : ((project.heroLines && project.heroLines.length)
         ? project.heroLines.map(function(line){ return escapeHtml(line); }).join('<br>')
         : escapeHtml(project.title || ''));
-
+    /* Always rebuild the mask for every Work Detail project. Do not reuse the
+       previous project's animation state, because the title DOM is replaced. */
+    titleEl.classList.remove('bird-mask-play');
+    titleEl.classList.remove('bird-mask-reveal');
+    titleEl.removeAttribute('data-bird-masked');
+    titleEl.style.visibility = 'hidden';
+    titleEl.setAttribute('data-page-heading','project-title');
+    titleEl.setAttribute('data-project-title-slug', project.slug || '');
+    titleEl.innerHTML = projectTitleHTML;
     var categorySource = project.heroEyebrow || project.displayCategory || project.category || '';
     document.getElementById('pdHeroType').textContent = categorySource;
     document.getElementById('pdTagline').textContent = project.tagline || '';
@@ -3609,7 +4315,7 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
         var hotelImageCard = function(item, i){
           return '<div class="pd-live-hotel-card">' +
             '<img class="pd-live-hotel-image" src="' + item.image + '" alt="' + escapeAttr(item.name || (project.title + ' — Hotel ' + (i + 1))) + '" loading="lazy">' +
-            '<a href="' + escapeAttr(item.url || '#') + '" target="_blank" rel="noopener" class="pd-live-cta">' + escapeHtml(item.ctaLabel || 'FACEBOOK ↗') + '</a>' +
+            '<a href="' + escapeAttr(item.url || '#') + '" target="_blank" rel="noopener" class="pd-live-cta">' + escapeHtml(item.ctaLabel || 'FACEBOOK ↗︎') + '</a>' +
           '</div>';
         };
         liveMediaWrap.innerHTML =
@@ -3618,12 +4324,12 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
           '<div class="pd-live-hotel-row pd-live-hotel-row-c">' + hotelCImages.map(function(item, i){ return hotelImageCard(item, i + 6); }).join('') + '</div>';
       } else if (project.slug === 'project-12' && project.live.twoImages){
         liveSection.classList.add('project-12-live');
-        var liveImages = project.live.images || [{url:'#', ctaLabel:project.live.ctaLabel || 'VIEW ↗'}, {url:'#', ctaLabel:project.live.ctaLabel || 'VIEW ↗'}];
+        var liveImages = project.live.images || [{url:'#', ctaLabel:project.live.ctaLabel || 'VIEW ↗︎'}, {url:'#', ctaLabel:project.live.ctaLabel || 'VIEW ↗︎'}];
         liveMediaWrap.innerHTML = '<div class="pd-live-two-images">' + liveImages.slice(0,2).map(function(item, i){
           var liveImage = item.image || (i === 0 ? nidnoiLiveImage01 : nidnoiLiveImage02);
           return '<div class="pd-live-card">' +
             '<img class="pd-live-card-image" src="' + liveImage + '" alt="' + escapeAttr(project.title + ' — LIVE ' + (i + 1)) + '" loading="lazy">' +
-            '<a href="' + escapeAttr(item.url || '#') + '" target="_blank" rel="noopener" class="pd-live-cta">' + escapeHtml(item.ctaLabel || 'VIEW ↗') + '</a>' +
+            '<a href="' + escapeAttr(item.url || '#') + '" target="_blank" rel="noopener" class="pd-live-cta">' + escapeHtml(item.ctaLabel || 'VIEW ↗︎') + '</a>' +
           '</div>';
         }).join('') + '</div>';
       } else if (project.live.image && project.live.image.src){
@@ -3709,13 +4415,44 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
       updateNav('home');
     }
 
-    window.scrollTo(0,0);
+    /* Always start every new route at the very top.
+       This is a SPA, so the browser keeps the previous scroll position unless
+       we explicitly reset BOTH scroll containers. Disable browser restoration
+       and smooth scrolling for this reset, then force scrollTop = 0. */
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    var root = document.documentElement;
+    var body = document.body;
+    var previousRootBehavior = root.style.scrollBehavior;
+    var previousBodyBehavior = body ? body.style.scrollBehavior : '';
+    root.style.scrollBehavior = 'auto';
+    if (body) body.style.scrollBehavior = 'auto';
+    root.scrollTop = 0;
+    if (body) body.scrollTop = 0;
+    window.scrollTo({top:0, left:0, behavior:'instant'});
+    root.style.scrollBehavior = previousRootBehavior;
+    if (body) body.style.scrollBehavior = previousBodyBehavior;
+
     closeMobileNav();
     lastScrollY = 0;
     document.getElementById('siteHeader').classList.remove('nav-hidden');
     revealScan();
     var aboutScene = document.querySelector('.about-hero-scene');
     if (aboutScene) aboutScene.classList.remove('about-scrolled');
+
+    /* The router has now rendered and shown the destination. Start the page
+       transition from this exact DOM state (important for hash navigation,
+       where no full document reload happens). */
+    window.dispatchEvent(new Event('bird-route-ready'));
+    /* The destination DOM now exists. Start one fresh transition from this
+       exact state; this also runs for browser Back/Forward hash navigation. */
+    setTimeout(function(){
+      /* Guard against the browser restoring the previous scroll position after
+         the hash navigation. The reveal must never begin mid-page. */
+      document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+      window.scrollTo({top:0, left:0, behavior:'instant'});
+      if (typeof run === 'function') run();
+    }, 0);
   }
 
   /* ---------------- Scroll reveal (replays every time an element enters/exits view) ---------------- */
@@ -3741,8 +4478,21 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
     });
   }, { threshold:0.15, rootMargin:'0px 0px -8% 0px' });
 
+  function setupHomeFooterReveal(){
+    /* HOME — reveal the page content as each block enters the viewport. */
+    document.querySelectorAll('.page[data-page="home"] .home-section-title, .page[data-page="home"] .home-section-cta, .page[data-page="home"] .home-about-left, .page[data-page="home"] .home-about-image').forEach(function(el){
+      el.classList.add('home-scroll-reveal');
+    });
+
+    /* FOOTER — reveal the complete footer in a short staggered sequence. */
+    document.querySelectorAll('footer.site-footer .footer-heading, footer.site-footer .footer-main, footer.site-footer .footer-copyright').forEach(function(el){
+      el.classList.add('footer-scroll-reveal');
+    });
+  }
+
   function revealScan(){
-    document.querySelectorAll('.reveal, .reveal-media').forEach(function(el){
+    setupHomeFooterReveal();
+    document.querySelectorAll('.reveal, .reveal-media, .home-scroll-reveal, .footer-scroll-reveal').forEach(function(el){
       revealObserver.observe(el);
     });
     document.querySelectorAll('.pd-autoplay-on-view').forEach(function(video){
@@ -4251,6 +5001,10 @@ footer.site-footer{
   }
 }
 @media (max-width:700px){
+  /* Move everything from EMAIL downward lower on mobile. */
+  footer.site-footer .footer-right{
+    margin-top:28px !important;
+  }
   footer.site-footer .footer-right > a:nth-of-type(1){
     margin-top:6px !important;
   }
@@ -5056,6 +5810,148 @@ footer.site-footer .footer-right a::after {
   height:auto !important;
   object-fit:contain !important;
   display:block !important;
+}
+</style>
+
+
+<style id="work-card-h5-38-final">
+/* H5 — Work Card project names across Home, Work, and Next Project */
+.work-tile-cap h2,
+.work-tile-cap h3,
+.next-project-card-cap h4{
+  font-size:28px !important;
+  font-weight:600 !important;
+}
+</style>
+
+<style id="footer-mobile-linkedin-resume-down-final">
+/* Mobile: move LinkedIn + Resume further down, starting from LinkedIn. */
+@media(max-width:700px){
+  footer.site-footer .footer-right > a:nth-of-type(1),
+  footer.site-footer .footer-right > a:nth-of-type(2){
+    transform:translateY(20px) !important;
+  }
+}
+</style>
+
+<style id="user-final-typography-system">
+/* FINAL TYPOGRAPHY SYSTEM — user specified */
+body, p { font-size:16px !important; font-weight:400 !important; }
+
+/* H0 */
+.home-hero h1, .hero-word {
+  font-size:200px !important; font-weight:600 !important;
+}
+@media (max-width:700px){
+  .home-hero h1, .hero-word { font-size:72px !important; font-weight:600 !important; }
+}
+
+/* H1 */
+.page-hero-title, .about-hero-title, .contact-page-title, .pd-title {
+  font-size:92px !important; font-weight:600 !important;
+}
+@media (max-width:700px){
+  .page-hero-title, .about-hero-title, .contact-page-title, .pd-title {
+    font-size:48px !important; font-weight:600 !important;
+  }
+}
+
+/* H2 */
+h2, .section-title, .pd-section-title, .hero-role, .about-title, .contact-head h2 {
+  font-size:32px !important; font-weight:600 !important;
+}
+@media (max-width:700px){
+  h2, .section-title, .pd-section-title, .hero-role, .about-title, .contact-head h2 {
+    font-size:28px !important; font-weight:600 !important;
+  }
+}
+
+/* H3 */
+h3 { font-size:20px !important; font-weight:600 !important; }
+@media (max-width:700px){ h3 { font-size:18px !important; font-weight:600 !important; } }
+
+/* H4 */
+h4 { font-size:16px !important; font-weight:600 !important; }
+@media (max-width:700px){ h4 { font-size:16px !important; font-weight:600 !important; } }
+
+/* H5 — Work card project title */
+h5, .work-tile-cap h5, .work-tile-cap h3.h5 {
+  font-size:28px !important; font-weight:600 !important;
+}
+@media (max-width:700px){
+  h5, .work-tile-cap h5, .work-tile-cap h3.h5 {
+    font-size:24px !important; font-weight:600 !important;
+  }
+}
+
+/* Body */
+body, p, .pd-content-body, .pd-content-body p {
+  font-size:16px !important; font-weight:400 !important;
+}
+
+/* Label */
+.eyebrow, .label, .pd-hero-year, .pd-hero-type, .pd-meta-row div .k,
+.pd-quickmeta .k, .work-tile-cap .idx, .work-tile-cap .cat, .filter-btn,
+.contact-item .k {
+  font-size:12px !important; font-weight:400 !important;
+}
+
+/* Logo */
+.logo { font-size:20px !important; font-weight:600 !important; }
+@media (max-width:820px){ .logo { font-size:20px !important; font-weight:600 !important; } }
+
+/* Navigation — WORK / ABOUT / CONTACT */
+.nav-link {
+  font-size:12px !important; font-weight:600 !important;
+}
+@media (max-width:820px){
+  .nav-link {
+    font-size:16px !important; font-weight:600 !important;
+  }
+}
+</style>
+
+
+<style id="mobile-nav-toggle-final-fix">
+/* MOBILE NAV — closed by default; opens only when hamburger is pressed. */
+@media (max-width:700px){
+  nav.nav-links{
+    display:none !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:40px !important;
+  }
+  nav.nav-links.open{
+    display:flex !important;
+  }
+
+  /* Mobile menu typography: only slightly larger than desktop. */
+  nav.nav-links .nav-link,
+  nav.nav-links .nav-link:hover,
+  nav.nav-links .nav-link:focus,
+  nav.nav-links .nav-link:active,
+  nav.nav-links .nav-link.active,
+  nav.nav-links .nav-link.active:hover,
+  nav.nav-links .nav-link.active:focus{
+    font-size:16px !important;
+    font-weight:600 !important;
+    line-height:1.2 !important;
+    padding:0 !important;
+    border-bottom:0 !important;
+    text-decoration:none !important;
+    box-shadow:none !important;
+    color:#FFFFFF !important;
+    transition:none !important;
+  }
+
+  /* No hover/active underline on touch/mobile navigation. */
+  nav.nav-links .nav-link::after,
+  nav.nav-links .nav-link:hover::after,
+  nav.nav-links .nav-link.active::after,
+  nav.nav-links .nav-link[aria-current="page"]::after{
+    content:none !important;
+    display:none !important;
+  }
 }
 </style>
 
@@ -6636,6 +7532,72 @@ footer.site-footer .footer-right a.footer-link:focus-visible {
 }
 </style>
 
+<style id="nidnoi-live-match-hotel-pattern">
+/* NIDNOI LIVE ONLY — two 4:5 cards, same layering pattern as Hotel Booking Insights. */
+#pdLiveSection.project-12-live .pd-live-two-images{
+  position:static !important;
+  width:100% !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:24px !important;
+  padding:0 !important;
+  align-items:start !important;
+}
+#pdLiveSection.project-12-live .pd-live-card{
+  position:relative !important;
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:4 / 5 !important;
+  max-width:none !important;
+  overflow:hidden !important;
+  background:#000 !important;
+}
+#pdLiveSection.project-12-live .pd-live-card .pd-live-card-image{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  aspect-ratio:auto !important;
+  object-fit:cover !important;
+  display:block !important;
+  transform:scale(1) !important;
+  transition:transform .35s ease !important;
+  z-index:1 !important;
+}
+#pdLiveSection.project-12-live .pd-live-card:hover .pd-live-card-image{
+  transform:scale(1.035) !important;
+}
+#pdLiveSection.project-12-live .pd-live-card::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background:rgba(0,0,0,.30) !important;
+  z-index:2 !important;
+  pointer-events:none !important;
+}
+#pdLiveSection.project-12-live .pd-live-card .pd-live-cta{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  bottom:auto !important;
+  transform:translate(-50%,-50%) !important;
+  z-index:5 !important;
+  pointer-events:auto !important;
+}
+@media(max-width:700px){
+  #pdLiveSection.project-12-live .pd-live-two-images{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px !important;
+  }
+  #pdLiveSection.project-12-live .pd-live-card{
+    width:100% !important;
+    max-width:none !important;
+  }
+}
+</style>
+
 <style id="live-portrait-size-final">
 /* LIVE portrait visuals — slightly larger */
 #pdLiveSection.project-12-live .pd-live-card{
@@ -6940,5 +7902,537 @@ footer.site-footer{
     width:min(calc(100% - 48px), 540px) !important;
     margin:40px auto 0 !important;
   }
+}
+</style>
+
+<style id="bird-project-title-mask-thai-fix">
+/* PROJECT DETAIL — the project name itself is the page heading and must use the same true masked reveal as every other page heading. */
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal{
+  position:relative !important;
+  overflow:hidden !important;
+  clip-path:inset(-0.24em 0 -0.08em 0) !important;
+}
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal > .bird-mask-line{
+  display:block !important;
+  overflow:visible !important;
+  padding-top:.24em !important;
+  margin-top:-.24em !important;
+  box-sizing:content-box !important;
+  transform:translateY(100%);
+}
+.page[data-page="project-detail"] .pd-title.bird-mask-reveal.bird-mask-play > .bird-mask-line{
+  animation:birdMaskSlideUp .55s cubic-bezier(.22,.61,.36,1) both !important;
+}
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal{
+    clip-path:inset(-0.28em 0 -0.10em 0) !important;
+  }
+  .page[data-page="project-detail"] .pd-title.bird-mask-reveal > .bird-mask-line{
+    padding-top:.28em !important;
+    margin-top:-.28em !important;
+  }
+}
+</style>
+
+<style id="bird-home-hero-single-source-final">
+/* HOME HERO — single source of truth. */
+.page[data-page="home"] .home-hero{
+  min-height:100svh !important;
+  height:100svh !important;
+  background:#000 !important;
+  overflow:hidden !important;
+}
+.page[data-page="home"] .home-hero-inner{
+  position:relative !important;
+  width:100% !important;
+  max-width:none !important;
+  min-height:100svh !important;
+  height:100svh !important;
+  margin:0 !important;
+  padding:0 80px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+.page[data-page="home"] .home-hero h1{
+  position:static !important;
+  inset:auto !important;
+  align-self:center !important;
+  width:auto !important;
+  max-width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:none !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  font-size:min(200px,13.2vw) !important;
+  line-height:.88 !important;
+  letter-spacing:-.04em !important;
+}
+.page[data-page="home"] .home-hero h2{
+  position:static !important;
+  inset:auto !important;
+  align-self:center !important;
+  width:auto !important;
+  max-width:100% !important;
+  margin:14px 0 0 !important;
+  padding:0 !important;
+  transform:none !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  font-size:32px !important;
+  line-height:1.05 !important;
+}
+@media(max-width:700px){
+  .page[data-page="home"] .home-hero-inner{padding:0 24px !important;}
+  .page[data-page="home"] .home-hero h1{font-size:clamp(64px,17vw,110px) !important;}
+  .page[data-page="home"] .home-hero h2{font-size:clamp(20px,5.4vw,32px) !important;margin-top:12px !important;}
+}
+</style>
+
+<style id="bird-responsive-composition-v1">
+/* RESPONSIVE — composition-first mobile pass.
+   Desktop remains unchanged; mobile reorders scale/spacing for the available width. */
+@media (max-width:700px){
+  :root{ --pad-x:24px; }
+
+  /* Header — compact, touch-friendly, visually quiet. */
+  .nav-inner{ padding:12px var(--pad-x); min-height:50px; }
+  .logo{ font-size:20px !important; font-weight:600 !important; }
+  .nav-toggle{ min-width:40px; min-height:36px; padding:7px 10px; }
+  nav.nav-links{ inset:50px 0 0 0; padding:36px var(--pad-x) 28px; }
+  nav.nav-links .nav-link{ padding:0 !important; font-size:16px !important; line-height:1.2 !important; }
+  nav.nav-links{ display:flex; flex-direction:column; align-items:flex-start; gap:32px; }
+
+  /* HOME — keep the desktop idea, but let the title breathe instead of shrinking blindly. */
+  .page[data-page="home"] .home-hero-inner{ padding:0 var(--pad-x) !important; }
+  .page[data-page="home"] .home-hero h1{
+    font-size:clamp(64px,17vw,82px) !important;
+    line-height:.88 !important;
+    letter-spacing:-.045em !important;
+  }
+  .page[data-page="home"] .home-hero h2{
+    max-width:18ch !important;
+    white-space:normal !important;
+    font-size:clamp(20px,5.6vw,24px) !important;
+    line-height:1.08 !important;
+    margin-top:14px !important;
+  }
+
+  /* WORK — heading, description, then filter, then cards. Keep each relationship clear. */
+  .page[data-page="work"] .work-head{
+    padding-top:92px !important;
+    padding-bottom:0 !important;
+  }
+  .page[data-page="work"] .page-hero-title{ font-size:48px !important; }
+  .page[data-page="work"] .page-hero-centered .section-lede{
+    margin-top:20px !important;
+    font-size:16px !important;
+    line-height:1.55 !important;
+    max-width:34ch !important;
+  }
+  .page[data-page="work"] .filters.filters-centered{
+    justify-content:flex-start !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:6px !important;
+    margin-top:48px !important;
+    padding-bottom:2px;
+    padding-right:var(--pad-x);
+  }
+  .page[data-page="work"] .filters.filters-centered::-webkit-scrollbar{ display:none; }
+  .page[data-page="work"] .filter-btn{ flex:0 0 auto; padding:8px 13px; }
+  .page[data-page="work"] .work-list{
+    padding-top:32px !important;
+    padding-bottom:80px !important;
+  }
+  .page[data-page="work"] .work-grid{
+    grid-template-columns:1fr !important;
+    row-gap:56px !important;
+  }
+  .page[data-page="work"] .work-tile-cap{
+    margin-top:14px !important;
+    gap:12px !important;
+  }
+  .page[data-page="work"] .work-tile-cap h2,
+  .page[data-page="work"] .work-tile-cap h3{
+    font-size:28px !important;
+    line-height:1.02 !important;
+  }
+  .page[data-page="work"] .work-tile-cap .meta{ max-width:34%; }
+  .page[data-page="work"] .work-tile-cap .cat{ white-space:normal; line-height:1.25; }
+
+  /* PROJECT DETAIL — preserve the hero as the visual anchor, then turn metadata into a readable stack. */
+  .page[data-page="project-detail"] .pd-hero-full{
+    height:min(78svh,680px) !important;
+    min-height:500px !important;
+    margin-top:-50px !important;
+  }
+  .page[data-page="project-detail"] .pd-hero-overlay{
+    padding:78px var(--pad-x) 40px !important;
+  }
+  .page[data-page="project-detail"] .pd-title{
+    font-size:48px !important;
+    line-height:.94 !important;
+    max-width:14ch !important;
+  }
+  .page[data-page="project-detail"] .pd-tagline{
+    font-size:16px !important;
+    line-height:1.5 !important;
+    max-width:36ch !important;
+  }
+  .page[data-page="project-detail"] .pd-section{
+    padding-top:56px !important;
+    padding-bottom:56px !important;
+  }
+  .page[data-page="project-detail"] .pd-quickmeta{
+    grid-template-columns:1fr 1fr !important;
+    gap:28px 20px !important;
+  }
+  .page[data-page="project-detail"] .pd-content-grid{
+    grid-template-columns:1fr !important;
+    gap:24px !important;
+  }
+  .page[data-page="project-detail"] .pd-section-title{
+    font-size:32px !important;
+    margin-bottom:0 !important;
+  }
+  .page[data-page="project-detail"] .pd-content-body p{
+    font-size:16px !important;
+    line-height:1.65 !important;
+  }
+  .page[data-page="project-detail"] .pd-role-tools-grid{
+    grid-template-columns:1fr !important;
+    row-gap:32px !important;
+    margin-top:56px !important;
+  }
+  .page[data-page="project-detail"] .pd-fullbleed-visual{
+    margin-top:40px !important;
+  }
+  .page[data-page="project-detail"] .next-projects-grid{
+    grid-template-columns:1fr !important;
+    gap:40px !important;
+    margin-top:32px !important;
+  }
+  .page[data-page="project-detail"] .next-project-card-cap{
+    margin-top:14px !important;
+    gap:12px !important;
+  }
+  .page[data-page="project-detail"] .next-project-card-cap h4{
+    font-size:28px !important;
+    line-height:1.05 !important;
+  }
+  .page[data-page="project-detail"] .next-project-card-cap .meta{ max-width:34%; }
+  .page[data-page="project-detail"] .next-project-card-cap .cat{ white-space:normal; line-height:1.25; }
+  .page[data-page="project-detail"] .pd-next-section{
+    padding-top:56px !important;
+    padding-bottom:72px !important;
+  }
+
+  /* ABOUT — title becomes part of the flow visually, rather than competing with the portrait. */
+  .page[data-page="about"] .about-hero-title{
+    position:relative !important;
+    top:auto !important;
+    right:auto !important;
+    margin:88px var(--pad-x) 0 !important;
+    font-size:48px !important;
+    line-height:.92 !important;
+  }
+  .page[data-page="about"] .about-hero-scene{
+    padding-top:48px !important;
+    min-height:auto !important;
+  }
+  .page[data-page="about"] .about-hero-left{
+    min-height:auto !important;
+    padding:0 0 48px !important;
+  }
+  .page[data-page="about"] .about-portrait-frame{
+    width:96px !important;
+    margin-bottom:24px !important;
+  }
+  .page[data-page="about"] .about-title{
+    font-size:32px !important;
+  }
+  .page[data-page="about"] .about-description{
+    margin-top:20px !important;
+    line-height:1.6 !important;
+  }
+  .page[data-page="about"] .about-hero-right{
+    width:100% !important;
+    padding:0 0 64px !important;
+  }
+  .page[data-page="about"] .about-right-block{
+    padding-top:40px !important;
+    padding-bottom:40px !important;
+    max-width:none !important;
+  }
+  .page[data-page="about"] .about-right-block:first-child{ padding-top:0 !important; }
+  .page[data-page="about"] .section-title{ font-size:32px !important; }
+  .page[data-page="about"] .about-flow{ line-height:1.65 !important; }
+  .page[data-page="about"] .experience-item{ padding:22px 0 !important; }
+  .page[data-page="about"] .experience-item .exp-role{ font-size:20px !important; }
+  .page[data-page="about"] .experience-item .exp-desc{ line-height:1.6 !important; }
+
+  /* CONTACT — same hierarchy as desktop, but title participates in the page flow. */
+  .page[data-page="contact"] .contact-page-title{
+    position:relative !important;
+    top:auto !important;
+    right:auto !important;
+    margin:92px var(--pad-x) 0 !important;
+    font-size:48px !important;
+    line-height:.92 !important;
+    max-width:8ch !important;
+  }
+  .page[data-page="contact"] .contact-head{ padding-top:48px !important; }
+  .page[data-page="contact"] .contact-foot{
+    padding-top:0 !important;
+    padding-bottom:80px !important;
+  }
+  .page[data-page="contact"] .contact-list{ margin-top:0 !important; }
+  .page[data-page="contact"] .contact-item{
+    padding:22px 0 !important;
+    gap:8px !important;
+  }
+  .page[data-page="contact"] .contact-item a{
+    font-size:clamp(20px,6vw,26px) !important;
+    line-height:1.25 !important;
+    overflow-wrap:anywhere;
+  }
+
+  /* Footer — stack without creating a giant empty column. */
+  footer.site-footer .footer-inner{ padding-left:var(--pad-x) !important; padding-right:var(--pad-x) !important; }
+  footer.site-footer .footer-main{ row-gap:32px !important; }
+}
+
+@media (max-width:380px){
+  .page[data-page="home"] .home-hero h1{ font-size:64px !important; }
+  .page[data-page="work"] .work-tile-cap h2,
+  .page[data-page="work"] .work-tile-cap h3,
+  .page[data-page="project-detail"] .next-project-card-cap h4{ font-size:26px !important; }
+  .page[data-page="project-detail"] .pd-quickmeta{ grid-template-columns:1fr !important; gap:22px !important; }
+}
+</style>
+<style id="footer-mobile-linkedin-resume-final-fix">
+/* Mobile: move the LinkedIn + Resume group down together. */
+@media(max-width:700px){
+  footer.site-footer .footer-right > a:nth-of-type(1){
+    margin-top:20px !important;
+  }
+}
+</style>
+
+
+<style id="typography-fluid-final">
+/* FINAL TYPOGRAPHY SYSTEM — fluid scaling; no separate mobile typography overrides. */
+:root{
+  --fs-h0: clamp(72px, 13.2vw, 200px);
+  --fs-h1: clamp(48px, 6.1vw, 92px);
+  --fs-h2: clamp(26px, 2.15vw, 32px);
+  --fs-h3: clamp(18px, 1.4vw, 20px);
+  --fs-h4: 16px;
+  --fs-h5: clamp(22px, 1.9vw, 28px);
+  --fs-body: 16px;
+  --fs-label: 12px;
+  --fs-logo: 20px;
+  --fs-nav: 12px;
+}
+
+/* H0 — Home DRIFTBIRD */
+.page[data-page="home"] .home-hero h1,
+.home-hero h1{
+  font-size:var(--fs-h0) !important;
+  font-weight:600 !important;
+}
+
+/* H1 */
+h1,
+.pd-title,
+.page-hero-title,
+.about-hero-title,
+.contact-page-title,
+.hero .hero-word{
+  font-size:var(--fs-h1) !important;
+  font-weight:600 !important;
+}
+
+/* H2 */
+h2,
+.section-title,
+.pd-section-title,
+.hero .hero-role,
+.about-hero .about-title{
+  font-size:var(--fs-h2) !important;
+  font-weight:600 !important;
+}
+
+/* H3 */
+h3,
+.experience-item .exp-role{
+  font-size:var(--fs-h3) !important;
+  font-weight:600 !important;
+}
+
+/* H4 */
+h4{ font-size:var(--fs-h4) !important; font-weight:600 !important; }
+
+/* H5 — Work Card / Next Project title */
+.work-tile-cap h2,
+.work-tile-cap h3,
+.next-project-card-cap h4{
+  font-size:var(--fs-h5) !important;
+  font-weight:600 !important;
+}
+
+/* Body */
+body,
+p,
+.pd-content-body,
+.pd-content-body p,
+.about-flow{
+  font-size:var(--fs-body) !important;
+  font-weight:400 !important;
+}
+
+/* Label */
+.label,
+.footer-label,
+.work-tile-cap .idx,
+.work-tile-cap .cat,
+.contact-item .k,
+.experience-item .exp-year{
+  font-size:var(--fs-label) !important;
+  font-weight:400 !important;
+}
+
+/* Logo */
+.logo{
+  font-size:var(--fs-logo) !important;
+  font-weight:600 !important;
+}
+
+/* Navigation — WORK / ABOUT / CONTACT */
+.nav-link{
+  font-size:var(--fs-nav) !important;
+  font-weight:600 !important;
+}
+
+/* Responsive navigation — larger only when the mobile menu layout is active. */
+@media (max-width:700px){
+  .nav-link{ font-size:16px !important; }
+}
+</style>
+
+<style id="FINAL-H2-H5-RESPONSIVE-FIX">
+/* FINAL — Responsive H2 / H5 sizes */
+@media (max-width:700px){
+  /* H2 */
+  h2,
+  .section-title,
+  .pd-section-title,
+  .hero .hero-role,
+  .about-hero .about-title{
+    font-size:24px !important;
+  }
+
+  /* H5 — Work Card / Next Project title */
+  .work-tile-cap h2,
+  .work-tile-cap h3,
+  .next-project-card-cap h4,
+  h5,
+  .work-tile-cap h5,
+  .work-tile-cap h3.h5{
+    font-size:20px !important;
+  }
+}
+
+/* Keep H5 at 20px on very small screens too */
+@media (max-width:380px){
+  .work-tile-cap h2,
+  .work-tile-cap h3,
+  .next-project-card-cap h4,
+  h5,
+  .work-tile-cap h5,
+  .work-tile-cap h3.h5{
+    font-size:20px !important;
+  }
+}
+</style>
+
+<style id="FINAL-ALL-PAGES-H2-H5-RESPONSIVE">
+/* FINAL CHECK — H2/H5 responsive across EVERY page */
+
+/* H2: Home / Work / About / Contact / Work Detail */
+@media (max-width:700px){
+  .page[data-page="home"] .home-section-title,
+  .page[data-page="work"] .section-title,
+  .page[data-page="work"] .page-hero-centered .section-lede + *,
+  .page[data-page="about"] .section-title,
+  .page[data-page="about"] .about-title,
+  .page[data-page="contact"] .contact-head h2,
+  .page[data-page="project-detail"] .pd-section-title,
+  .hero .hero-role,
+  .about-hero .about-title{
+    font-size:24px !important;
+  }
+
+  /* H5: Work cards on Home + Work, and Next Project cards on Detail */
+  .page[data-page="home"] .work-tile-cap h2,
+  .page[data-page="home"] .work-tile-cap h3,
+  .page[data-page="work"] .work-tile-cap h2,
+  .page[data-page="work"] .work-tile-cap h3,
+  .page[data-page="project-detail"] .next-project-card-cap h4,
+  .work-tile-cap h5,
+  .work-tile-cap h3.h5{
+    font-size:20px !important;
+  }
+}
+
+/* Same H5 size on the smallest screens; overrides the old 26px rule. */
+@media (max-width:380px){
+  .page[data-page="home"] .work-tile-cap h2,
+  .page[data-page="home"] .work-tile-cap h3,
+  .page[data-page="work"] .work-tile-cap h2,
+  .page[data-page="work"] .work-tile-cap h3,
+  .page[data-page="project-detail"] .next-project-card-cap h4,
+  .work-tile-cap h5,
+  .work-tile-cap h3.h5{
+    font-size:20px !important;
+  }
+}
+</style>
+
+
+<style id="FINAL-LIVE-PORTRAIT-CTA-ZOOM-FIX">
+/* FINAL — LIVE only: restore hover zoom and CTA click/hover for portrait layouts.
+   No changes to CTA hover styling itself. */
+
+/* Project 14 — หมาคาบเกิบ Promotional Visual (2:3) */
+#pdLiveSection.project-14-live .pd-live-full:hover > #pdLiveMediaWrap > .pd-live-image{
+  transform:scale(1.035) !important;
+}
+#pdLiveSection.project-14-live .pd-live-overlay .pd-live-cta{
+  z-index:10 !important;
+  pointer-events:auto !important;
+}
+
+/* Project 13 — React ความรู้สึก เพลงประกอบชีวิต (9:16) */
+#pdLiveSection.project-13-live .pd-live-overlay .pd-live-cta{
+  z-index:10 !important;
+  pointer-events:auto !important;
+}
+
+/* Project 12 — นิดหน่อย Promotional Visual (4:5 × 2) */
+#pdLiveSection.project-12-live .pd-live-card{
+  position:relative !important;
+}
+#pdLiveSection.project-12-live .pd-live-card .pd-live-cta{
+  z-index:20 !important;
+  pointer-events:auto !important;
 }
 </style>
