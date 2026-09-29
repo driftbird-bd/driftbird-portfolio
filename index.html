@@ -6106,6 +6106,20 @@ body, p, .pd-content-body, .pd-content-body p {
   }
 }
 </style>
+
+<style id="home-driftbird-mobile-full-fit-final">
+/* HOME — mobile only: keep DRIFTBIRD fully visible on one line. */
+@media (max-width:700px){
+  .home-hero h1{
+    font-size:64px !important;
+    white-space:nowrap !important;
+    width:100% !important;
+    max-width:none !important;
+    overflow:visible !important;
+    letter-spacing:-0.04em !important;
+  }
+}
+</style>
 </body>
 
 <style id="user-home-layout-final-fix">
@@ -8623,6 +8637,116 @@ p,
   #pdLiveSection.project-20-live .pd-live-full{
     height:auto !important;
     min-height:0 !important;
+    margin-bottom:0 !important;
+  }
+}
+</style>
+
+
+<style id="project-13-live-mobile-heading-fix">
+/* Project 13 — Responsive LIVE heading must stay visible above the portrait media. */
+@media (max-width:700px){
+  #pdLiveSection.project-13-live .pd-live-heading-wrap{
+    position:relative !important;
+    z-index:20 !important;
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    padding-bottom:24px !important;
+  }
+  #pdLiveSection.project-13-live .pd-live-heading-wrap .pd-section-title{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+  /* The old desktop-only -120px offset was covering the LIVE heading on mobile. */
+  #pdLiveSection.project-13-live .pd-live-full{
+    margin-top:0 !important;
+  }
+}
+</style>
+
+
+<style id="project-13-live-mobile-media-spacing-final">
+/* Project 13 — Responsive LIVE: move Media closer to LIVE heading and balance space below. */
+@media (max-width:700px){
+  /* Override the higher-specificity shared LIVE heading spacing. */
+  .page[data-page="project-detail"] #pdLiveSection.project-13-live .pd-live-heading-wrap{
+    padding-bottom:16px !important;
+  }
+  #pdLiveSection.project-13-live .pd-live-full{
+    margin-top:-12px !important;
+    margin-bottom:0 !important;
+  }
+  #pdLiveSection.project-13-live{
+    padding-bottom:16px !important;
+    margin-bottom:0 !important;
+  }
+}
+</style>
+
+<style id="project-13-live-mobile-structural-fix-final">
+/* Project 13 — FIX ROOT CAUSE: a later shared LIVE rule was forcing the
+   mobile Media frame back to 16:9, so spacing changes appeared not to move it. */
+@media (max-width:700px){
+  #pdLiveSection.project-13-live{
+    padding-bottom:8px !important;
+    margin-bottom:0 !important;
+    height:auto !important;
+    min-height:0 !important;
+  }
+
+  #pdLiveSection.project-13-live .pd-live-heading-wrap{
+    padding-bottom:8px !important;
+    margin-bottom:0 !important;
+  }
+
+  /* Force the actual React Media frame back to its intended 9:16 portrait ratio. */
+  #pdLiveSection.project-13-live .pd-live-full{
+    position:relative !important;
+    left:auto !important;
+    right:auto !important;
+    width:calc(100% - 48px) !important;
+    max-width:540px !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+    aspect-ratio:9 / 16 !important;
+    margin:0 auto !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+  }
+
+  #pdLiveSection.project-13-live .pd-live-overlay{
+    position:absolute !important;
+    inset:0 !important;
+    height:100% !important;
+    min-height:0 !important;
+  }
+}
+</style>
+
+
+<style id="project-13-live-mobile-spacing-exact-final">
+/* Project 13 — ONLY responsive LIVE spacing. Do not affect other pages. */
+@media (max-width:700px){
+  /* Bring the LIVE heading/media group upward and closer together. */
+  #pdLiveSection.project-13-live .pd-live-heading-wrap{
+    padding-top:24px !important;
+    padding-bottom:8px !important;
+    margin-bottom:0 !important;
+  }
+
+  /* Keep the portrait Media frame directly after the heading. */
+  #pdLiveSection.project-13-live .pd-live-full{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+
+  /* Remove the large empty area underneath Media before the divider. */
+  #pdLiveSection.project-13-live{
+    padding-bottom:8px !important;
     margin-bottom:0 !important;
   }
 }
