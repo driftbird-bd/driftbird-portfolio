@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>driftbird — Bird, Graphic Designer</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://cdn.jsdelivr.net/gh/lazywasabi/thai-web-fonts@7/fonts/LINESeedSansTH/LINESeedSansTH.css" rel="stylesheet">
 <style>
   :root{
@@ -330,8 +331,11 @@
   .pd-tool-item:last-child{ border-bottom:none; }
   .pd-tool-logo{
     width:32px; height:32px; flex:none; display:flex; align-items:center; justify-content:center;
-    background:var(--surface); border:1px solid var(--line); font-size:11px; font-weight:600;
+    background:transparent; border:none; font-size:11px; font-weight:600;
     letter-spacing:.02em; color:var(--off); text-transform:uppercase;
+  }
+  .pd-tool-logo img{
+    width:28px; height:28px; object-fit:contain; display:block;
   }
   .pd-tool-name{ font-size:16px; font-weight:400; color:#FFFFFF; }
 
@@ -2980,6 +2984,40 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
   transform:scale(1.035) !important;
 }
 </style>
+<style id="overview-role-tools-mobile-spacing-final">
+/* RESPONSIVE — increase spacing between My Role and Tools on every Work Detail page. */
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-role-tools-grid{
+    row-gap:64px !important;
+  }
+}
+</style>
+
+<style id="overview-role-tools-mobile-spacing-final-2">
+/* ONLY responsive Work Detail — add vertical space between My Role and Tools. */
+@media (max-width:700px){
+  .page[data-page="project-detail"] .pd-content-body .pd-role-tools-grid{
+    row-gap:80px !important;
+  }
+}
+</style>
+
+<style id="hotel-booking-live-mobile-space-final-fix">
+/* HOTEL BOOKING INSIGHTS — LIVE ONLY, responsive: remove excess space below the media. */
+@media (max-width:700px){
+  #pdLiveSection.project-20-live{
+    height:auto !important;
+    min-height:0 !important;
+    padding-bottom:24px !important;
+    margin-bottom:0 !important;
+  }
+  #pdLiveSection.project-20-live .pd-live-full{
+    height:auto !important;
+    min-height:0 !important;
+    margin-bottom:0 !important;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -3604,7 +3642,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       conceptImage: 'assets/images/image-041.jpg',
       tagline: "A playful TikTok filter inspired by the song “หมาคาบเกิบ.”",
       overview: "A TikTok Filter design project for “หมาคาบเกิบ”, using playful elements such as a dog and flip-flops to create an engaging experience connected to the song’s title. The filter supports up to four players, with each person receiving a different colored flip-flop.",
-      overviewImages: [{ src: 'assets/images/image-042.jpg', alt: "หมาคาบเกิบ TikTok Filter" }],
+      overviewImages: [{ src: 'assets/images/image-041.jpg', alt: "หมาคาบเกิบ TikTok Filter" }],
       concept: "",
       live: {
         placeholder: true,
@@ -3766,7 +3804,7 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
     if (match && match.cardImage) match.heroImage = match.cardImage;
   });
 
-  var categories = ["All", "Graphic", "Digital", "Animation", "Motion", "Web", "Production", "Content"];
+  var categories = ["All", "Graphic", "Digital", "Animation", "Motion", "Production", "Content"];
 
   /* Supplied video — The Secret of Green Tea / Concept Image follow-up */
   var GREEN_TEA_CONCEPT_VIDEO = 'assets/videos/video-003.mp4';
@@ -3830,10 +3868,29 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
       return '<div class="skill-row" style="transition-delay:' + (i * 40) + 'ms"><span class="num">' + num + '</span><span class="name">' + t + '</span></div>';
     }).join('');
   }
+  function toolIconPath(name){
+    var key = name.trim().toLowerCase();
+    var icons = {
+      "adobe illustrator": "assets/images/image-060.png",
+      "adobe photoshop": "assets/images/image-061.png",
+      "adobe after effects": "assets/images/image-062.png",
+      "adobe premiere pro": "assets/images/image-063.png",
+      "canva": "assets/images/image-064.png",
+      "adobe lightroom": "assets/images/image-065.png",
+      "tiktok effect house": "assets/images/image-066.png",
+      "knorex xpo": "assets/images/image-067.png",
+      "ibispaint x": "assets/images/image-068.png"
+    };
+    return icons[key] || "";
+  }
   function renderToolsList(toolsStr){
     var items = splitList(toolsStr);
     return items.map(function(t){
-      return '<div class="pd-tool-item"><span class="pd-tool-logo">' + abbrTool(t) + '</span><span class="pd-tool-name">' + t + '</span></div>';
+      var icon = toolIconPath(t);
+      var logo = icon
+        ? '<img src="' + icon + '" alt="" aria-hidden="true">'
+        : abbrTool(t);
+      return '<div class="pd-tool-item"><span class="pd-tool-logo">' + logo + '</span><span class="pd-tool-name">' + t + '</span></div>';
     }).join('');
   }
 
@@ -4221,7 +4278,8 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
         dev.map(function(item, i){
           var directionTitle = (item.title || '').replace(/^\d+\s*[—-]\s*/,'');
           var directionImage = i === 0 ? project.promoConceptImage : nidnoiDirection02Image;
-          var html = '<h4 class="reveal pd-promo-label" style="margin-top:18px;">' + escapeHtml(directionTitle) + '</h4>' +
+          var directionTopMargin = i === 1 ? '72px' : '18px';
+          var html = '<h4 class="reveal pd-promo-label" style="margin-top:' + directionTopMargin + ';">' + escapeHtml(directionTitle) + '</h4>' +
                      '<p class="reveal" style="margin-top:18px;">' + escapeHtml(item.description) + '</p>' +
                      (directionImage ? '<div class="pd-concept-inline-large-image pd-promo-direction-image reveal-media"><img src="' + directionImage + '" alt="' + escapeAttr(project.title + ' — ' + directionTitle) + '" loading="lazy"></div>' : '');
           return html;
@@ -4296,7 +4354,7 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
 
     // Live: only a real published URL.
     var liveSection = document.getElementById('pdLiveSection');
-    liveSection.classList.remove('project-12-live','project-11-live','project-09-live','project-14-live','project-20-live');
+    liveSection.classList.remove('project-12-live','project-11-live','project-09-live','project-13-live','project-14-live','project-20-live');
     if (project.live && (project.live.url || project.live.placeholder || (project.live.images && project.live.images.length))){
       liveSection.hidden = false;
       if (project.slug === 'project-12' && project.live.twoImages) liveSection.classList.add('project-12-live');
@@ -4825,6 +4883,18 @@ footer.site-footer{border-top:1px solid var(--line) !important;}
   .home-hero h1{transform:translateY(10px) !important;}
   .home-hero h2{max-width:12ch !important;}
   .footer-right{margin-right:0 !important;}
+}
+</style>
+
+<style id="mobile-home-hero-ios-fit-final">
+/* HOME HERO — mobile Safari/iPhone: keep DRIFTBIRD fully inside the viewport. */
+@media (max-width:700px){
+  .page[data-page="home"] .home-hero h1{
+    font-size:clamp(52px,15vw,64px) !important;
+    letter-spacing:-.05em !important;
+    white-space:nowrap !important;
+    max-width:100% !important;
+  }
 }
 </style>
 
@@ -5955,6 +6025,87 @@ body, p, .pd-content-body, .pd-content-body p {
 }
 </style>
 
+
+<style id="responsive-bts-media-spacing-final-confirmed">
+/* RESPONSIVE ONLY — bring BTS media closer to the Behind The Scenes heading. */
+@media (max-width:700px){
+  .page[data-page="project-detail"] #pdBtsGrid{
+    margin-top:24px !important;
+  }
+}
+</style>
+
+<style id="hotel-booking-live-balanced-section-final">
+/* HOTEL BOOKING INSIGHTS — responsive LIVE: balance the space above and below Media. */
+@media (max-width:700px){
+  #pdLiveSection.project-20-live .pd-live-heading-wrap{
+    padding-bottom:24px !important;
+  }
+  #pdLiveSection.project-20-live .pd-live-full{
+    margin-bottom:0 !important;
+  }
+  #pdLiveSection.project-20-live{
+    padding-bottom:24px !important;
+    margin-bottom:0 !important;
+    height:auto !important;
+    min-height:0 !important;
+  }
+}
+</style>
+
+<style id="responsive-live-balanced-five-pages-v2">
+/* RESPONSIVE ONLY — balance LIVE section spacing on the five requested pages. */
+@media (max-width:700px){
+  #pdLiveSection.project-09-live,
+  #pdLiveSection.project-11-live,
+  #pdLiveSection.project-15-live,
+  #pdLiveSection.project-19-live,
+  #pdLiveSection.project-13-live{
+    padding-bottom:24px !important;
+    margin-bottom:0 !important;
+  }
+
+  #pdLiveSection.project-09-live .pd-live-heading-wrap,
+  #pdLiveSection.project-11-live .pd-live-heading-wrap,
+  #pdLiveSection.project-15-live .pd-live-heading-wrap,
+  #pdLiveSection.project-19-live .pd-live-heading-wrap,
+  #pdLiveSection.project-13-live .pd-live-heading-wrap{
+    padding-bottom:24px !important;
+  }
+
+  /* Keep landscape LIVE media proportional to its actual visible content. */
+  #pdLiveSection.project-09-live .pd-live-full,
+  #pdLiveSection.project-11-live .pd-live-full{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+    aspect-ratio:16 / 9 !important;
+    height:auto !important;
+  }
+
+  /* Valentine: keep the 4:5 media treatment, but remove extra section space. */
+  #pdLiveSection.project-19-live .pd-live-full{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+    aspect-ratio:4 / 5 !important;
+    height:auto !important;
+  }
+
+  /* TikTok Filter: remove the previous upward offset; let the section balance naturally. */
+  #pdLiveSection.project-15-live .pd-live-full{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+
+  /* React: remove the old 520px minimum/negative offset that created excessive empty space. */
+  #pdLiveSection.project-13-live .pd-live-full{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  #pdLiveSection.project-13-live .pd-live-overlay{
+    min-height:0 !important;
+  }
+}
+</style>
 </body>
 
 <style id="user-home-layout-final-fix">
@@ -6634,6 +6785,15 @@ footer.site-footer .footer-copyright{
 }
 </style>
 
+
+<style id="responsive-bts-media-spacing-final">
+/* RESPONSIVE — move Behind The Scenes media closer to its heading on all work-detail pages that have BTS. Desktop unchanged. */
+@media (max-width:700px){
+  .page[data-page="project-detail"] #pdBtsGrid{
+    margin-top:24px !important;
+  }
+}
+</style>
 </html>
 
 <style id="v23-home-final-adjustments">
@@ -8095,6 +8255,10 @@ footer.site-footer{
     grid-template-columns:1fr 1fr !important;
     gap:28px 20px !important;
   }
+  .page[data-page="project-detail"] .pd-role-tools-grid{
+    row-gap:48px !important;
+  }
+
   .page[data-page="project-detail"] .pd-content-grid{
     grid-template-columns:1fr !important;
     gap:24px !important;
@@ -8434,5 +8598,32 @@ p,
 #pdLiveSection.project-12-live .pd-live-card .pd-live-cta{
   z-index:20 !important;
   pointer-events:auto !important;
+}
+</style>
+
+<style id="live-media-move-up-project-15-13">
+/* LIVE — move only the Media box upward for Project 15 and Project 13. */
+#pdLiveSection.project-15-live .pd-live-full{
+  margin-top:-80px !important;
+}
+#pdLiveSection.project-13-live .pd-live-full{
+  margin-top:-120px !important;
+}
+</style>
+
+<style id="hotel-booking-live-mobile-space-final-override-v2">
+/* HOTEL BOOKING INSIGHTS — ONLY responsive LIVE spacing. Final override. */
+@media (max-width:700px){
+  #pdLiveSection.project-20-live{
+    height:auto !important;
+    min-height:0 !important;
+    padding-bottom:24px !important;
+    margin-bottom:0 !important;
+  }
+  #pdLiveSection.project-20-live .pd-live-full{
+    height:auto !important;
+    min-height:0 !important;
+    margin-bottom:0 !important;
+  }
 }
 </style>
