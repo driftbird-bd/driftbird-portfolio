@@ -3,6 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  var path = window.location.pathname || "/";
+  var base = path === "/driftbird-portfolio" || path.indexOf("/driftbird-portfolio/") === 0
+    ? "/driftbird-portfolio/" : "/";
+  var el = document.createElement("base");
+  el.href = base;
+  document.head.appendChild(el);
+})();
+</script>
 <title>driftbird — Bird, Graphic Designer</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://cdn.jsdelivr.net/gh/lazywasabi/thai-web-fonts@7/fonts/LINESeedSansTH/LINESeedSansTH.css" rel="stylesheet">
@@ -1201,7 +1211,7 @@ footer.site-footer{background:#000!important;padding:100px 0 24px!important}.foo
   font-weight:600 !important;
   line-height:1.1 !important;
 }
-/* Footer: EMAIL / address / LINKEDIN / RESUME in one column */
+/* Footer contact links */
 footer.site-footer .footer-contact-column{
   display:flex !important;
   flex-direction:column !important;
@@ -2390,8 +2400,10 @@ footer.site-footer a.footer-link:focus-visible::after {
   };
 
   function page(){
-    var p=(location.hash||'#home').slice(1).split('/');
-    if(p[0]==='work'&&p[1]) return 'project';
+    var path=(location.pathname||'/').replace(/\/$/,'');
+    if(path.indexOf('/driftbird-portfolio')===0) path=path.slice('/driftbird-portfolio'.length);
+    var p=path.replace(/^\/+|\/+$/g,'').split('/');
+    if(p[0] && !pageSelectors[p[0]]) return 'project';
     return pageSelectors[p[0]]?p[0]:'home';
   }
 
@@ -2536,36 +2548,30 @@ footer.site-footer a.footer-link:focus-visible::after {
     }
 
     /*
-     * Top navigation: same-page links keep the existing reload behavior.
-     * Different pages use the same hidden-new-page -> masked-heading reveal.
+     * Client-side clean-path navigation. This handles the top navigation,
+     * project cards, and in-site CTA links without adding URL fragments.
      */
-    document.querySelectorAll('.nav-link').forEach(function(link){
-      link.addEventListener('click',function(e){
-        var target=(link.getAttribute('href')||'').replace(/^#/,'').split('/')[0]||'home';
-        var hash=(location.hash||'#home').slice(1);
-        var parts=hash.split('/');
-        var current=parts[0]||'home';
-        var isWorkDetail=(current==='work' && !!parts[1]);
-
-        /* Work Detail belongs to the Work route, but clicking Work from a
-           detail page must return to #work — never reload the detail page. */
-        if(target===current && !isWorkDetail){
-          e.preventDefault();
-          window.location.reload();
-          return;
-        }
-
+    document.addEventListener('click', function(e){
+      var link = e.target.closest('a[href]');
+      if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (link.target === '_blank' || link.hasAttribute('download')) return;
+      var url;
+      try { url = new URL(link.href, window.location.href); } catch(err) { return; }
+      if (url.origin !== window.location.origin || url.hash || url.pathname.indexOf(siteBasePath || '/') !== 0) return;
+      var targetPath = url.pathname.replace(/\/$/, '') || '/';
+      var currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+      if (targetPath === currentPath) {
         e.preventDefault();
-        /* Hide the currently rendered page immediately. The hashchange/router
-           runs on the next event turn; leaving the old page visible during that
-           gap causes HOME (or the previous page) to flash before the new route
-           begins its masked heading reveal. */
-        document.querySelectorAll('.page').forEach(function(sec){
-          sec.classList.remove('bird-page-ready');
-          sec.hidden = true;
-        });
-        window.location.hash='#'+target;
+        route();
+        return;
+      }
+      e.preventDefault();
+      document.querySelectorAll('.page').forEach(function(sec){
+        sec.classList.remove('bird-page-ready');
+        sec.hidden = true;
       });
+      window.history.pushState({}, '', url.pathname);
+      route();
     });
   });
 })();
@@ -2577,8 +2583,8 @@ footer.site-footer a.footer-link:focus-visible::after {
     if(logo && !logo.dataset.reloadBound){
       logo.dataset.reloadBound='1';
       logo.addEventListener('click',function(e){
-        var current=(location.hash||'#home').slice(1).split('/')[0] || 'home';
-        if(current==='home'){
+        var current=(location.pathname||'/').replace(/\/$/,'').split('/').pop() || 'home';
+        if(current==='home' || current==='driftbird-portfolio'){
           e.preventDefault();
           window.location.reload();
         }
@@ -3023,12 +3029,12 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
 
 <header class="site-header" id="siteHeader">
   <div class="nav-inner">
-    <a href="#home" class="logo">drift<span>bird</span></a>
+    <a href="./" class="logo">drift<span>bird</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span></button>
     <nav class="nav-links" id="navLinks">
-      <a href="#work" class="nav-link" data-nav="work">Work</a>
-      <a href="#about" class="nav-link" data-nav="about">About</a>
-      <a href="#contact" class="nav-link" data-nav="contact">Contact</a>
+      <a href="work" class="nav-link" data-nav="work">Work</a>
+      <a href="about" class="nav-link" data-nav="about">About</a>
+      <a href="contact" class="nav-link" data-nav="contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -3050,7 +3056,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       <h2 class="home-section-title">SELECTED WORK</h2>
       <div class="work-grid home-selected-grid" id="homeWorkGrid"></div>
       <div class="home-section-cta">
-        <a href="#work" class="btn">VIEW ALL WORK</a>
+        <a href="work" class="btn">VIEW ALL WORK</a>
       </div>
     </section>
 
@@ -3063,7 +3069,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
 
           <h3>I'M BIRD.</h3><h4>KULTIDA THIYA</h4>
           <p>I’m a Graphic Designer working across Visual Design, Digital Campaigns, Web, and Content. I’m currently developing my practice toward Creative Design, with an interest in concept development, visual communication, and bringing ideas to life.</p>
-          <div class="home-section-cta"><a href="#about" class="btn">MORE ABOUT ME</a></div>
+          <div class="home-section-cta"><a href="about" class="btn">MORE ABOUT ME</a></div>
           </div>
         </div>
         <div class="home-about-image">
@@ -3184,7 +3190,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       <div class="pd-section-title reveal">Next Project</div>
       <div class="next-projects-grid" id="pdNextGrid"></div>
       <div class="pd-allwork reveal">
-        <a href="#work" class="btn">All Work</a>
+        <a href="work" class="btn">All Work</a>
       </div>
     </div>
   </section>
@@ -3279,10 +3285,6 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
         <div class="contact-item reveal">
           <span class="k">LinkedIn</span>
           <a href="https://www.linkedin.com/in/kultida-thiya/" target="_blank" rel="noopener">Kultida Thiya</a>
-        </div>
-        <div class="contact-item reveal">
-          <span class="k">Resume</span>
-          <a href="https://drive.google.com/file/d/1qsxKk68UirHiKsJL6csRCOMPggK0px3I/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume ↗︎</a>
         </div>
       </div>
     </div>
@@ -3387,7 +3389,6 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
           <a class="footer-value footer-link" href="mailto:kullatida5437@gmail.com">kullatida5437@gmail.com</a>
         </div>
         <a class="footer-value footer-link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LINKEDIN ↗︎</a>
-        <a class="footer-value footer-link" href="https://drive.google.com/file/d/1qsxKk68UirHiKsJL6csRCOMPggK0px3I/view?usp=sharing" target="_blank" rel="noopener noreferrer">RESUME ↗︎</a>
       </div>
     </div>
 
@@ -3398,6 +3399,19 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
 <script>
 (function(){
 
+  var baseElement = document.querySelector('base');
+  var siteBasePath = baseElement ? new URL(baseElement.href).pathname.replace(/\/$/, '') : '';
+  function routeUrl(route){
+    var path = (route || '').replace(/^\/+|\/+$/g, '');
+    return (siteBasePath || '') + (path ? '/' + path : '/');
+  }
+  function currentRoute(){
+    var path = window.location.pathname || '/';
+    if (siteBasePath && path.indexOf(siteBasePath) === 0) path = path.slice(siteBasePath.length);
+    path = path.replace(/^\/+|\/+$/g, '');
+    return path || 'home';
+  }
+
   /* ---------------- Project data ---------------- */
   var nidnoiMoodReferenceImage = 'assets/images/image-002.jpg';
       var nidnoiDirection02Image = 'assets/images/image-003.jpg';
@@ -3406,7 +3420,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       var nidnoiPromoImage = 'assets/images/image-006.jpg';
   var projects = [
     {
-      idx: "08", slug: "project-08", title: "POH CHANG IN LOVE", category: "Graphic", year: "2023",
+      idx: "08", slug: "project-08", routeSlug: "poh-chang-in-love", title: "POH CHANG IN LOVE", category: "Graphic", year: "2023",
       role: "Concept Development / Visual Design / Graphic Design / Exhibition Design",
       services: "Concept Development — Poster Design — Visual Design",
       tools: "Adobe Illustrator — Adobe Photoshop",
@@ -3450,7 +3464,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       ]
     },
     {
-      idx: "09", slug: "project-09", title: "ใจเป็นนาย กายเป็นบ่าว", category: "Production", displayCategory: "PRODUCTION", year: "2024",
+      idx: "09", slug: "project-09", routeSlug: "jai-pen-nai-kai-pen-bao", title: "ใจเป็นนาย กายเป็นบ่าว", category: "Production", displayCategory: "PRODUCTION", year: "2024",
       overview: "A real music production project where Bird supported the production team on set for the release of “ใจเป็นนาย กายเป็นบ่าว” by เล็ก รัชเมศฐ์. Bird assisted with music playback according to the director’s cues, helped with basic setup and equipment movement, and worked within a fast-paced production environment.",
       overviewImages: [],
       role: "Production Support / Music Playback / On-Set Assistance",
@@ -3495,7 +3509,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "11", slug: "project-11", title: "Teaser mv นิดหน่อย", category: "Motion", year: "2024",
+      idx: "11", slug: "project-11", routeSlug: "teaser-mv-nidnoi", title: "Teaser mv นิดหน่อย", category: "Motion", year: "2024",
       role: "Logo Preparation / Logo Animation",
       services: "Logo Preparation — Logo Animation",
       tools: "Adobe Illustrator / Adobe After Effects",
@@ -3520,7 +3534,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "17", slug: "project-17", title: "Bobby Helps Escape Fire", category: "Animation", year: "2025",
+      idx: "17", slug: "project-17", routeSlug: "bobby-helps-escape-fire", title: "Bobby Helps Escape Fire", category: "Animation", year: "2025",
       heroLines: ["Bobby Helps", "Escape Fire"],
       role: "Concept Development / Character Design / Background Design / Illustration / Animation / Video Editing",
       services: "Concept Development — Character Design — Background Design — Illustration — Animation — Video Editing",
@@ -3540,7 +3554,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       live: null
     },
     {
-      idx: "20", slug: "project-20", title: "Hotel Booking Insights", category: "Content", year: "2026",
+      idx: "20", slug: "project-20", routeSlug: "hotel-booking-insights", title: "Hotel Booking Insights", category: "Content", year: "2026",
       role: "Visual Design / Layout Design / Data Visualization",
       tools: "Canva",
       guidance: "Quarterly hotel booking insights across multiple locations.",
@@ -3568,7 +3582,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "19", slug: "project-19", title: "Valentine’s Day Office Content", category: "Content", year: "2026",
+      idx: "19", slug: "project-19", routeSlug: "valentines-day-office-content", title: "Valentine’s Day Office Content", category: "Content", year: "2026",
       role: "Content Concept Development / Moodboard / Art Direction / Photography / Photo Editing",
       tools: "Adobe Illustrator",
       guidance: "Content created for the company’s social media during Valentine’s Day.",
@@ -3592,7 +3606,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "18", slug: "project-18", title: "Jungle Cruise Portfolio", category: "Graphic", year: "2021",
+      idx: "18", slug: "project-18", routeSlug: "jungle-cruise-portfolio", title: "Jungle Cruise Portfolio", category: "Graphic", year: "2021",
       role: "Photo Manipulation / Compositing / Lighting & Shadow",
       services: "Photo Manipulation — Compositing — Lighting & Shadow",
       tools: "Adobe Photoshop",
@@ -3611,7 +3625,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       live: null
     },
     {
-      idx: "16", slug: "project-16", title: "ลูกหมีผจญภัย", category: "Graphic", year: "2024",
+      idx: "16", slug: "project-16", routeSlug: "luk-mee-phajon", title: "ลูกหมีผจญภัย", category: "Graphic", year: "2024",
       role: "Illustration / Character Design / Background Design / Comic Layout",
       services: "Illustration — Character Design — Background Design — Comic Layout",
       tools: "ibisPaint X",
@@ -3630,7 +3644,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       live: null
     },
     {
-      idx: "15", slug: "project-15", title: "หมาคาบเกิบ TikTok Filter", category: "Digital", year: "2024",
+      idx: "15", slug: "project-15", routeSlug: "makhabkoeb-tiktok-filter", title: "หมาคาบเกิบ TikTok Filter", category: "Digital", year: "2024",
       role: "Filter Design / Effect Development",
       services: "Filter Design — Effect Development",
       tools: "TikTok Effect House / Adobe Photoshop",
@@ -3654,7 +3668,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "14", slug: "project-14", title: "หมาคาบเกิบ Promotional Visual", category: "Graphic", year: "2024",
+      idx: "14", slug: "project-14", routeSlug: "makhabkoeb-promotional-visual", title: "หมาคาบเกิบ Promotional Visual", category: "Graphic", year: "2024",
       role: "Photo Editing / Image Compositing / Visual Development",
       services: "Photo Editing — Image Compositing — Visual Development",
       tools: "Adobe Photoshop / Adobe Lightroom",
@@ -3678,7 +3692,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "13", slug: "project-13", title: "React ความรู้สึก เพลงประกอบชีวิต", category: "Content", year: "2024",
+      idx: "13", slug: "project-13", routeSlug: "react-khwam-rusuek-phleng-prakop-chiwit", title: "React ความรู้สึก เพลงประกอบชีวิต", category: "Content", year: "2024",
       role: "Comment Selection / Layout Design / Animation / Video Editing",
       services: "Comment Selection — Layout Design — Animation — Video Editing",
       tools: "Adobe Premiere Pro",
@@ -3704,7 +3718,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "12", slug: "project-12", title: "นิดหน่อย promotional visual", category: "Graphic", year: "2024",
+      idx: "12", slug: "project-12", routeSlug: "nidnoi-promotional-visual", title: "นิดหน่อย promotional visual", category: "Graphic", year: "2024",
       role: "Moodboarding / Photo Cutout / Composition / Color Grading",
       services: "Moodboarding — Photo Cutout — Composition — Color Grading",
       tools: "Adobe Photoshop / Adobe Lightroom",
@@ -3739,7 +3753,7 @@ footer.site-footer .footer-copyright.footer-scroll-reveal{transition-delay:240ms
       }
     },
     {
-      idx: "10", slug: "project-10", title: "The Secret of Green Tea", category: "Animation", year: "2024",
+      idx: "10", slug: "project-10", routeSlug: "the-secret-of-green-tea", title: "The Secret of Green Tea", category: "Animation", year: "2024",
       overview: "A 2D animation project created to introduce the benefits of green tea through a playful and approachable story. The animation follows a green tea character that comes to life after the café closes, revealing the “secrets” of green tea — from what it is and how it is made to its health benefits.",
       role: "Concept Development / Storyboarding / Character & Background Design / Animation Production / Video Editing / Sound Design",
       tools: "Adobe Illustrator / Adobe After Effects / Adobe Premiere Pro",
@@ -3777,7 +3791,7 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
       watchImage: { name: "Animation — Watch", dims: "1920 × 1080 · 16:9" }
     },
     {
-      idx: "21", slug: "project-21", title: "Dynamic Display Nexalin", category: "Digital", year: "2026",
+      idx: "21", slug: "project-21", routeSlug: "dynamic-display-nexalin", title: "Dynamic Display Nexalin", category: "Digital", year: "2026",
       role: "Visual Design / Layout Design / Dynamic Design",
       tools: "Adobe Photoshop / Adobe After Effects / Knorex XPO",
       guidance: "A dynamic display system redesigned across five different formats.",
@@ -3907,7 +3921,7 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
         '</div>'
       : '';
     return (
-      '<a class="work-tile reveal-media' + (large ? ' large' : '') + '" style="transition-delay:' + delay + 'ms" href="#work/' + p.slug + '" data-category="' + p.category + '">' +
+      '<a class="work-tile reveal-media' + (large ? ' large' : '') + '" style="transition-delay:' + delay + 'ms" href="' + routeUrl(p.routeSlug || p.slug) + '" data-category="' + p.category + '">' +
         tileMedia +
         '<div class="work-tile-cap">' +
           '<div>' +
@@ -4449,22 +4463,16 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
   }
 
   function route(){
-    var hash = window.location.hash.replace('#','');
-    if (!hash) hash = 'home';
-    var parts = hash.split('/');
-    var pageName = parts[0];
-    var param = parts[1];
+    var pathRoute = currentRoute();
+    var pageName = pathRoute.split('/')[0];
+    var project = projects.filter(function(p){
+      return p.routeSlug === pathRoute || p.slug === pathRoute;
+    })[0];
 
-    if (pageName === 'work' && param){
-      var project = projects.filter(function(p){ return p.slug === param; })[0];
-      if (project){
-        renderProjectDetail(project);
-        showPage('project-detail');
-        updateNav('work');
-      } else {
-        showPage('work');
-        updateNav('work');
-      }
+    if (project){
+      renderProjectDetail(project);
+      showPage('project-detail');
+      updateNav('work');
     } else if (validTopPages.indexOf(pageName) !== -1){
       showPage(pageName);
       updateNav(pageName);
@@ -4586,7 +4594,7 @@ Using a cute cartoon character, vibrant colors, and a relaxed storytelling style
     }
   });
 
-  window.addEventListener('hashchange', route);
+  window.addEventListener('popstate', route);
   window.addEventListener('DOMContentLoaded', function(){
     renderStatic();
     setupFilters();
@@ -5065,7 +5073,7 @@ footer.site-footer{
   footer.site-footer .footer-heading{
     margin-bottom:36px !important;
   }
-  /* Move LinkedIn down slightly; Resume follows it naturally. */
+  /* Move LinkedIn down slightly. */
   footer.site-footer .footer-right > a:nth-of-type(1){
     margin-top:10px !important;
   }
@@ -5894,8 +5902,8 @@ footer.site-footer .footer-right a::after {
 }
 </style>
 
-<style id="footer-mobile-linkedin-resume-down-final">
-/* Mobile: move LinkedIn + Resume further down, starting from LinkedIn. */
+<style id="footer-mobile-linkedin-spacing-final">
+/* Mobile: move LinkedIn further down. */
 @media(max-width:700px){
   footer.site-footer .footer-right > a:nth-of-type(1),
   footer.site-footer .footer-right > a:nth-of-type(2){
@@ -6430,7 +6438,7 @@ footer.site-footer .footer-item{
 }
 /* SEE YOU AROUND — only slightly farther from content. */
 footer.site-footer .footer-heading{ margin-bottom:32px !important; }
-/* LinkedIn + Resume move down together. */
+/* LinkedIn spacing adjustment. */
 footer.site-footer .footer-right > a:nth-of-type(1),
 footer.site-footer .footer-right > a:nth-of-type(2){
   transform:translateY(10px) !important;
@@ -7025,7 +7033,7 @@ footer.site-footer .footer-email{display:none !important;}
 
 
 <style id="v25-footer-row-fix">
-/* Footer contact row: EMAIL + address as one stacked block, then LinkedIn / Resume */
+/* Footer contact row: EMAIL + address as one stacked block, then LinkedIn */
 footer.site-footer .footer-socials{
   align-items:flex-start !important;
 }
@@ -8396,8 +8404,8 @@ footer.site-footer{
   .page[data-page="project-detail"] .pd-quickmeta{ grid-template-columns:1fr !important; gap:22px !important; }
 }
 </style>
-<style id="footer-mobile-linkedin-resume-final-fix">
-/* Mobile: move the LinkedIn + Resume group down together. */
+<style id="footer-mobile-linkedin-spacing-final-fix">
+/* Mobile: move the LinkedIn link down. */
 @media(max-width:700px){
   footer.site-footer .footer-right > a:nth-of-type(1){
     margin-top:20px !important;
